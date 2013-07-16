@@ -1,0 +1,67 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="OCTranspo.Views.Stops"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+
+    <phone:PhoneApplicationPage.Resources>
+        <!-- Favourites and Stop List Item-->
+        <DataTemplate x:Key="stopsListItem">
+            <Grid x:Name="LayoutRoot" HorizontalAlignment="Left" ShowGridLines="False" Height="75" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="290"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Ellipse Name="stopEllipse" Fill="#FFD21E00" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.ZIndex="5" />
+                    <Rectangle Height="75" Width="5" Fill="DarkGray" Name="stopsRectangle" Visibility="{Binding isLastItem}"/>
+                </Grid>
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="stopName" Grid.Row="0" Text="RIDEAU CENTRE" Foreground="#FF323232" Width="250" VerticalAlignment="Top" FontSize="25" FontFamily="Segoe UI" HorizontalAlignment="Left" Margin="0,-4,0,0"/>
+                    <TextBlock Name="stopTime" Grid.Row="1" Text="12:00" Foreground="Gray" Width="250" VerticalAlignment="Top" FontSize="25" FontFamily="Segoe UI" HorizontalAlignment="Left" Margin="0,-4,0,0"/>
+                </Grid>
+                
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="2" Background="#FFD21E00" Margin="2,-4,2,0">
+                    <TextBlock FontSize="18" TextTrimming="WordEllipsis" Text=" 7096 " Foreground="White" FontFamily="Segoe UI Light" VerticalAlignment="CEn" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+    </phone:PhoneApplicationPage.Resources>
+    
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="130"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <Grid Grid.Row="0" Margin="12,17,0,28">
+            <Rectangle  VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="80" Fill="#FFD21E00" Margin="-17,-18,0,0" />
+            <TextBlock Name="stopName" TextTrimming="WordEllipsis" Text="page name" FontSize="35" Margin="50,10,19,28" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" VerticalAlignment="Center" FontFamily="Segoe WP Light"/>
+            <TextBlock x:Name="stopID" Text="18" FontSize="40" Margin="0,5,431,33" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="47"/>
+        </Grid>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <phone:LongListSelector Name="StopsList" HorizontalAlignment="Left" ItemTemplate="{StaticResource stopsListItem}" Height="656" VerticalAlignment="Top" Width="446" Margin="0,-28,0,0"/>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>
