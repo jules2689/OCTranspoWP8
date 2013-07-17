@@ -46,8 +46,7 @@ namespace OCTranspo
             this.routesList.ItemsSource = routes;
             this.favouritesList.ItemsSource = favourites;
             OCSupport.getNextTripForStop(3009, 95, new UploadStringCompletedEventHandler(processGetNextTripForStop));
-            OCSupport.getRouteSummaryForStop(3009, new UploadStringCompletedEventHandler(processGetRouteSummaryForStop));
-            
+           // OCSupport.getRouteSummaryForStop(3009, new UploadStringCompletedEventHandler(processGetRouteSummaryForStop)); 
         }
 
         public void processGetRouteSummaryForStop(Object sender, UploadStringCompletedEventArgs e)
@@ -65,16 +64,23 @@ namespace OCTranspo
                 loadingProgressBar.Text = "Loading favourites data ...";
                 string reply = (string)e.Result;
                 OCNextTripForStop stop = OCSupport.makeNextTrip(reply);
-                favourites.Clear();
-                foreach (OCDirection direction in stop.Directions)
+                if (stop != null)
                 {
-                    direction.FromStopName = stop.StopLabel;
-                    direction.FromStopNumber = stop.StopNo;
-                    direction.DirectionalName = "to " + direction.RouteLabel.ToUpper();
-                    favourites.Add(direction);
+                    favourites.Clear();
+                    foreach (OCDirection direction in stop.Directions)
+                    {
+                        direction.FromStopName = stop.StopLabel;
+                        direction.FromStopNumber = stop.StopNo;
+                        direction.DirectionalName = "to " + direction.RouteLabel.ToUpper();
+                        favourites.Add(direction);
+                    }
+                    this.favouritesList.ItemsSource = favourites;
+                    loadingProgressBar.IsVisible = false;
                 }
-                this.favouritesList.ItemsSource = favourites;
-                loadingProgressBar.IsVisible = false;
+                else
+                {
+                    loadingProgressBar.IsVisible = false;
+                }
             }
             catch (WebException webEx)
             {
@@ -108,8 +114,45 @@ namespace OCTranspo
         private async void getNearbyStops()
         {
             Geocoordinate myCoordinate = await GeoLocator.getMyLocation();
-            nearbyStops = await OCTranspoStopsData.getCloseStops(myCoordinate.Latitude, myCoordinate.Longitude, currentLocation.ZoomLevel);
-            this.nearbyList.ItemsSource = nearbyStops;
+            if (myCoordinate != null)
+            {
+                nearbyStops = await OCTranspoStopsData.getCloseStops(myCoordinate.Latitude, myCoordinate.Longitude, currentLocation.ZoomLevel);
+                this.nearbyList.ItemsSource = nearbyStops;
+
+                setNearbyErrorMessage(true, nearbyStops.Count > 0);
+            }
+            else
+            {
+                nearbySorry.Visibility = nearbyStops.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+                nearbyFrown.Visibility = nearbyStops.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+                setNearbyErrorMessage(true, false);
+            }
+        }
+
+        private void setNearbyErrorMessage(bool GPSEnabled, bool foundItems)
+        {
+            if (!GPSEnabled)
+            {
+                nearbySorry.Text = "Sorry, your GPS is not enabled!";
+                nearbySorry.Visibility = Visibility.Visible;
+                nearbyFrown.Visibility = Visibility.Visible;
+            } else if (GPSEnabled && !foundItems)
+            {
+                nearbySorry.Text = "Sorry, we couldn't find any stops close to you!";
+                nearbySorry.Visibility = Visibility.Visible;
+                nearbyFrown.Visibility = Visibility.Visible;
+            }
+            else if (GPSEnabled && foundItems)
+            {
+                nearbySorry.Text = "Sorry, we couldn't find any stops close to you!";
+                nearbySorry.Visibility = Visibility.Collapsed;
+                nearbyFrown.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                nearbySorry.Visibility = Visibility.Collapsed;
+                nearbyFrown.Visibility = Visibility.Collapsed;
+            }
         }
 
         //Maps Methods***********************************************************************************************************************************************************//
@@ -212,12 +255,12 @@ namespace OCTranspo
             if (selectedItem is OCDirection)
             {
                 OCDirection stop = (OCDirection)selectedItem;
-                Navigation.NavigateToStop(stop.RouteNo.ToString(), stop.RouteLabel);
+                Navigation.NavigateToStopRoute(stop.RouteNo.ToString(), stop.RouteLabel);
             }
             else if (selectedItem is OCStop)
             {
                 OCStop stop = (OCStop)selectedItem;
-                Navigation.NavigateToStop(stop.StopID.ToString(), stop.StopDesc);
+                Navigation.NavigateToStopRoute(stop.StopID.ToString(), stop.StopDesc);
             }
             ((LongListSelector)sender).SelectedItem = null;
         }

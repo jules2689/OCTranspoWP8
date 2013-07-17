@@ -96,6 +96,9 @@
     <Compile Include="GeoLocator.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Navigation.cs" />
+    <Compile Include="Views\StopRoutes.xaml.cs">
+      <DependentUpon>StopRoutes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Info.xaml.cs">
       <DependentUpon>Info.xaml</DependentUpon>
     </Compile>
@@ -127,6 +130,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Views\StopRoutes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Info.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -18,4 +18,5 @@ public class OCRoute
     public int DirectionID { get; set; }
     public String Direction { get; set; }
     public String RouteHeading { get; set; }
+    public String BusName { get; set; }
 }

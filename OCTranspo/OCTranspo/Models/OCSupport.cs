@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 public class OCSupport
 {
@@ -19,7 +20,14 @@ public class OCSupport
 
     public static async void getRouteSummaryForStop(int stop, UploadStringCompletedEventHandler handler)
     {
-        await Post(new Dictionary<String, String>(), argsBase, stop, -1, handler);
+        try
+        {
+            await Post(new Dictionary<String, String>(), argsBase, stop, -1, handler);
+        }
+        catch
+        {
+            MessageBox.Show("There was an issue getting data, is your data connection working?");
+        }
     }
     public static async void getNextTripForStop(int stop, int route, UploadStringCompletedEventHandler handler)
     {
@@ -66,31 +74,47 @@ public class OCSupport
 
     public static OCRouteSummaryForStop makeRouteSummary(String xml)
     {
-        XElement root = XDocument.Parse(removeSOAPWrapper(xml)).Root;
-        int stopNo;
-        String stopLabel;
-        XElement route;
+        try
+        {
+            XElement root = XDocument.Parse(removeSOAPWrapper(xml)).Root;
+            int stopNo;
+            String stopLabel;
+            XElement route;
 
-        stopNo = int.Parse(root.Element("StopNo").Value);
-        stopLabel = root.Element("StopDescription").Value;
-        route = root.Element("Routes");
+            stopNo = int.Parse(root.Element("StopNo").Value);
+            stopLabel = root.Element("StopDescription").Value;
+            route = root.Element("Routes");
 
-        return OCRouteSummaryForStop.newOCRouteSummaryForStop(stopNo, stopLabel, makeRoute(route));
+            return OCRouteSummaryForStop.newOCRouteSummaryForStop(stopNo, stopLabel, makeRoute(route));
+        }
+        catch
+        {
+           MessageBox.Show("There was an issue getting your data, please try again.");
+            return null;
+        }
     }
 
 
     public static OCNextTripForStop makeNextTrip(String xml)
     {
-        XElement root = XDocument.Parse(removeSOAPWrapper(xml)).Root;
-        int stopNo;
-        String stopLabel;
-        XElement dir;
+        try
+        {
+            XElement root = XDocument.Parse(removeSOAPWrapper(xml)).Root;
+            int stopNo;
+            String stopLabel;
+            XElement dir;
 
-        stopNo = int.Parse(root.Element("StopNo").Value);
-        stopLabel = root.Element("StopLabel").Value;
-        dir = root.Element("Route");
+            stopNo = int.Parse(root.Element("StopNo").Value);
+            stopLabel = root.Element("StopLabel").Value;
+            dir = root.Element("Route");
 
-        return OCNextTripForStop.newOCNextTripForStop(stopNo, stopLabel, makeDirection(dir));
+            return OCNextTripForStop.newOCNextTripForStop(stopNo, stopLabel, makeDirection(dir));
+        }
+        catch
+        {
+            MessageBox.Show("There was an issue getting your data, please try again.");
+            return null;
+        }
     }
 
 
@@ -108,8 +132,9 @@ public class OCSupport
             dirId = int.Parse(route.Element("DirectionID").Value);
             dir = route.Element("Direction").Value;
             heading = route.Element("RouteHeading").Value;
-
-            rts.Add(OCRoute.newOCRoute(routeNo, dirId, dir, heading));
+            OCRoute routeObject = OCRoute.newOCRoute(routeNo, dirId, dir, heading);
+            routeObject.BusName = heading.ToUpper();
+            rts.Add(routeObject);
         }
 
         return rts;

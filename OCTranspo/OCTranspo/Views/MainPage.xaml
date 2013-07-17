@@ -28,7 +28,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="270"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="125"/> <!--  WITH ARROW <ColumnDefinition Width="100"/>  -->
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
@@ -49,7 +49,7 @@
                     <TextBlock FontSize="18" Padding="6,2,6,2"  HorizontalAlignment="Center" TextTrimming="WordEllipsis" Text="{Binding FromStopNumber}" Foreground="White" FontFamily="Segoe UI Light" FontStyle="Italic" />
                 </Grid>
                 
-                <Image Grid.Column="3" Source="/Assets/arrow.png" HorizontalAlignment="Left" Width="20" Height="20" />
+               <!-- <Image Grid.Column="3" Source="/Assets/arrow.png" HorizontalAlignment="Left" Width="20" Height="20" /> -->
                 <Rectangle Grid.ColumnSpan="4" Grid.Row="1" Height="5" Fill="DarkGray"/>
                 
                 <Grid Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="1" Margin="15,0,0,0">
@@ -104,20 +104,22 @@
             </phone:Pivot.HeaderTemplate>
 
             <!--Favourites-->
-            <phone:PivotItem CacheMode="{x:Null}" Header="favourites" Margin="0,4,0,0">
+            <phone:PivotItem CacheMode="{x:Null}" Header="favourites" Margin="0,4,0,13">
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>
-                <phone:LongListSelector x:Name="favouritesList" HorizontalAlignment="Left" Height="676" VerticalAlignment="Top" Width="450" Margin="20,0,0,-3" ItemTemplate="{StaticResource ocFavouriteListItem}" SelectionChanged="routesList_SelectionChanged"/>
+                <phone:LongListSelector x:Name="favouritesList" HorizontalAlignment="Left" Height="676" VerticalAlignment="Top" Width="450" Margin="20,0,0,-3" ItemTemplate="{StaticResource ocFavouriteListItem}"/>
             </phone:PivotItem>
 
             <!--Nearby-->
-            <phone:PivotItem CacheMode="{x:Null}" Header="nearby" Margin="27,4,0,0">
+            <phone:PivotItem CacheMode="{x:Null}" Header="nearby" Margin="27,4,0,20" VerticalAlignment="Top">
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>
                 <Grid>
+                    <TextBlock Name="nearbySorry" TextWrapping="Wrap" TextTrimming="WordEllipsis" Text="Sorry, we couldn't find any stops close to you! Is your GPS turned on?" Foreground="Black" Margin="60,136,93,0" Canvas.ZIndex="5" TextAlignment="Center" Width="300" Height="100" VerticalAlignment="Top" Visibility="Collapsed"/>
                     <phone:LongListSelector x:Name="nearbyList" HorizontalAlignment="Left" Height="642" VerticalAlignment="Top" Width="478" ItemTemplate="{StaticResource ocStopItemTemplate}" SelectionChanged="routesList_SelectionChanged" FontFamily="Segoe WP Light" Background="White" Margin="-11,0,-11,-8"/>
+                    <Image Name="nearbyFrown" HorizontalAlignment="Left" Height="47"  VerticalAlignment="Top" Width="44" Source="/Assets/frown.png" Margin="185,244,0,0" Visibility="Collapsed" />
                 </Grid>
             </phone:PivotItem>
 
@@ -134,7 +136,7 @@
             </phone:PivotItem>
 
             <!--Stops-->
-            <phone:PivotItem CacheMode="{x:Null}" Header="stops" Margin="12,4,12,0">
+            <phone:PivotItem CacheMode="{x:Null}" Header="stops" Margin="12,4,12,15">
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>
@@ -143,7 +145,7 @@
                         <ColumnDefinition Width="0*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <phone:LongListSelector x:Name="routesList" HorizontalAlignment="Left" Height="560" VerticalAlignment="Top" Width="475" ItemTemplate="{StaticResource ocStopItemTemplate}" SelectionChanged="routesList_SelectionChanged" FontFamily="Segoe WP Light" Margin="-19,82,0,0" Grid.ColumnSpan="2"/>
+                    <phone:LongListSelector x:Name="routesList" HorizontalAlignment="Left" Height="560" VerticalAlignment="Top" Width="456" ItemTemplate="{StaticResource ocStopItemTemplate}" SelectionChanged="routesList_SelectionChanged" FontFamily="Segoe WP Light" Margin="0,82,0,-34" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="routesSearch" Text="Stop Number / Stop Name" Height="68" TextWrapping="Wrap" Opacity="0.8" TextChanged="searchBoxText_Changed" GotFocus="OnSearchBoxGotFocus" LostFocus="OnSearchBoxLostFocus" SelectionBackground="White" VerticalAlignment="Top" BorderBrush="#FFD21E00" FontSize="22" Grid.ColumnSpan="2" Margin="0,14,0,0">
                         <TextBox.Background>
                             <ImageBrush Stretch="Uniform" ImageSource="/Assets/search.png" AlignmentX="Right"/>

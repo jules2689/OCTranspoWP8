@@ -22,14 +22,29 @@ namespace OCTranspo
         public static async void centerMapOnCurrentLocation(Map map)
         {
             Geocoordinate coordinate = await getMyLocation();
-            map.Center = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
+            if (coordinate !=null)
+            {
+                map.Center = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
+            }
         }
 
         public static async Task<Geocoordinate> getMyLocation()
         {
             Geolocator myGeolocator = new Geolocator();
-            Geoposition myGeoposition = await myGeolocator.GetGeopositionAsync();
-            Geocoordinate myGeocoordinate = myGeoposition.Coordinate;
+            Geocoordinate myGeocoordinate = null;
+            try
+            {
+                Geoposition geoposition = await myGeolocator.GetGeopositionAsync(
+                            maximumAge: TimeSpan.FromMinutes(5),
+                            timeout: TimeSpan.FromSeconds(10)
+                            );
+                myGeocoordinate = geoposition.Coordinate;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                MessageBox.Show("Your GPS is disabled, please enable it to use location based services");
+            }
+            
             return myGeocoordinate;
         }
 
@@ -52,14 +67,17 @@ namespace OCTranspo
         private static async void layMyLocation(MapLayer mapLayer)
         {
             Geocoordinate myCoordinate = await getMyLocation();
-            Ellipse e = new Ellipse();
-            Color blue = Color.FromArgb(255, 0, 119, 210);
-            e.StrokeThickness = 5;
-            e.Stroke = new SolidColorBrush(blue);
-            e.Fill = new SolidColorBrush(blue);
-            e.Fill.Opacity = 0.9;
-            e.Height = e.Width = 20;
-            layMarker(e, myCoordinate.Latitude, myCoordinate.Longitude, mapLayer);
+            if (myCoordinate != null)
+            {
+                Ellipse e = new Ellipse();
+                Color blue = Color.FromArgb(255, 0, 119, 210);
+                e.StrokeThickness = 5;
+                e.Stroke = new SolidColorBrush(blue);
+                e.Fill = new SolidColorBrush(blue);
+                e.Fill.Opacity = 0.9;
+                e.Height = e.Width = 20;
+                layMarker(e, myCoordinate.Latitude, myCoordinate.Longitude, mapLayer);
+            }
         }
 
         private static void drawMapMarker(OCStop stop, Color color, MapLayer mapLayer, Boolean action)
@@ -91,7 +109,7 @@ namespace OCTranspo
         {
             Pushpin pin = (Pushpin)sender;
             String[] pinAttr = pin.Name.Split('-');
-            Navigation.NavigateToStop(pinAttr[0], pinAttr[1]);
+            Navigation.NavigateToStopRoute(pinAttr[0], pinAttr[1]);
         }
 
     }
