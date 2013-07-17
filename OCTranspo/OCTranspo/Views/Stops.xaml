@@ -11,7 +11,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="False">
 
 
     <phone:PhoneApplicationPage.Resources>
@@ -60,7 +60,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <phone:LongListSelector Name="StopsList" HorizontalAlignment="Left" ItemTemplate="{StaticResource stopsListItem}" Height="656" VerticalAlignment="Top" Width="446" Margin="0,-28,0,0"/>
+            <phone:LongListSelector Name="StopsList" HorizontalAlignment="Left" ItemTemplate="{StaticResource stopsListItem}" Height="656" VerticalAlignment="Top" Width="446" Margin="0,-28,0,0" />
         </Grid>
     </Grid>
 

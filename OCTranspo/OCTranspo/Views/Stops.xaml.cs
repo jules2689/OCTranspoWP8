@@ -40,6 +40,5 @@ namespace OCTranspo.Views
             s.Add(".");
             StopsList.ItemsSource = s;
         }
-
     }
 }

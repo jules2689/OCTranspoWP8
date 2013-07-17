@@ -111,6 +111,17 @@ namespace OCTranspo
             String query = routesSearch.Text;
             routes = await OCTranspoStopsData.getStopByNameOrID(query);
             searchHasItems(routes.Count > 0);
+            if (routes.Count == 0 && query.Length > 0) 
+            { 
+                searchText.Text = "Sorry, we couldn't find a stop with that name or code, please try another search.";
+                searchSmile.Visibility = Visibility.Collapsed;
+                searchFrowny.Visibility = Visibility.Visible;
+            } else 
+            {
+                searchText.Text = "Search for a stop by it's number or name simply by tapping above.";
+                searchFrowny.Visibility = Visibility.Collapsed;
+                searchSmile.Visibility = Visibility.Visible;
+            }
             this.routesList.ItemsSource = routes;
             searchBoxTimer.Stop();
             searchProgressBar.Visibility = Visibility.Collapsed;

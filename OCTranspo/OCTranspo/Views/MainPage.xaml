@@ -3,19 +3,19 @@
        xmlns:maptk="clr-namespace:Microsoft.Phone.Maps.Toolkit;assembly=Microsoft.Phone.Controls.Toolkit"
        x:Class="OCTranspo.MainPage"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True" mc:Ignorable="d">
+    shell:SystemTray.IsVisible="False" mc:Ignorable="d">
 
     <phone:PhoneApplicationPage.Resources>
 
         <!-- Layout of the Nearby List Items-->
         <DataTemplate x:Key="ocStopItemTemplate">
-            <Grid x:Name="LayoutRoot" HorizontalAlignment="Left" ShowGridLines="False" >
+            <Grid x:Name="LayoutRoot" HorizontalAlignment="Left" ShowGridLines="False" Height="50">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="90" />
-                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock FontWeight="Bold" VerticalAlignment="Center" Grid.Column="0"  FontSize="30" Text="{Binding StopID}" Foreground="Black" />
-                <TextBlock VerticalAlignment="Center" Grid.Column="1" FontSize="18" TextTrimming="WordEllipsis" Text="{Binding StopDesc}" Foreground="Black" />
+                <TextBlock FontWeight="Bold" VerticalAlignment="Center" Grid.Column="0"  FontSize="40" Text="{Binding StopID}" Foreground="Black" />
+                <TextBlock VerticalAlignment="Center" Grid.Column="1" FontSize="30" TextTrimming="WordEllipsis" Text="{Binding StopDesc}" Foreground="Black" />
             </Grid>
         </DataTemplate>
 
@@ -26,7 +26,8 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="170"/>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="65"/>
@@ -40,9 +41,10 @@
                     <TextBlock VerticalAlignment="Bottom" FontSize="25" TextTrimming="WordEllipsis" Foreground="DarkGray"  FontFamily="Segoe UI Light" Text="TO RIDEAU CENTRE" Margin="5,8,0,0" />
                 </Grid>
                 
-                <Grid VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Background="#FFD21E00" Margin="2,0">
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="0" Background="#FFD21E00" Margin="2,0">
                    <TextBlock FontSize="18" TextTrimming="WordEllipsis" Text=" 7096 " Foreground="White" FontFamily="Segoe UI Light" />
                 </Grid>
+                <Image Grid.Column="3" Source="/Assets/arrow.png" HorizontalAlignment="Left" Width="20" Height="20" />
                 <Rectangle Grid.ColumnSpan="4" Grid.Row="1" Height="5" Fill="DarkGray"/>
                 <Grid Grid.Row="2" Grid.ColumnSpan="4">
                     <Grid.ColumnDefinitions>
@@ -75,10 +77,10 @@
         <StaticResource ResourceKey="PhoneForegroundBrush"/>
     </phone:PhoneApplicationPage.Foreground>
     
-    <Grid x:Name="LayoutRoot" Background="White">
-        <Rectangle  VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="80" Fill="#FFD21E00" />
-        <Image Source="/Assets/logo.png" Width="25" RenderTransformOrigin="-9.29,0.018" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,0,0,0" />
-        <phone:Pivot Background="Transparent" Foreground="Black">
+    <Grid x:Name="LayoutRoot" Background="White" Margin="0,10,0,0">
+        <Rectangle  VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="81" Fill="#FFD21E00" Margin="0,-13,0,0" />
+        <Image Source="/Assets/logo.png" Width="25" RenderTransformOrigin="-9.29,0.018" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4,-8,0,773" />
+        <phone:Pivot Background="Transparent" Foreground="Black" Margin="0,0,0,25">
             <phone:Pivot.HeaderTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}" Foreground="White" FontSize="40"/>
@@ -104,19 +106,19 @@
             </phone:PivotItem>
 
             <!--Map-->
-            <phone:PivotItem CacheMode="{x:Null}" Header="map" Margin="0,28,0,0">
+            <phone:PivotItem CacheMode="{x:Null}" Header="map" Margin="0,0,0,0">
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>
-                <maps:Map Name="currentLocation" HorizontalAlignment="Left" Height="818" VerticalAlignment="Top" Width="480" PedestrianFeaturesEnabled="True" ZoomLevel="15" CenterChanged="currentLocation_CenterChanged" Margin="0,-14,0,-128">
-                    <maps:Map.Center>
-                        <Location:GeoCoordinate Altitude="NaN" Course="NaN" HorizontalAccuracy="NaN" Longitude="-75.6919" Latitude="45.4214" Speed="NaN" VerticalAccuracy="NaN"/>
-                    </maps:Map.Center>
-                </maps:Map>
+                    <maps:Map Name="currentLocation" HorizontalAlignment="Left" Width="480" PedestrianFeaturesEnabled="True" ZoomLevel="15" CenterChanged="currentLocation_CenterChanged" Margin="0,5,0,-26">
+                        <maps:Map.Center>
+                            <Location:GeoCoordinate Altitude="NaN" Course="NaN" HorizontalAccuracy="NaN" Longitude="-75.6919" Latitude="45.4214" Speed="NaN" VerticalAccuracy="NaN"/>
+                        </maps:Map.Center>
+                    </maps:Map>
             </phone:PivotItem>
 
             <!--Stops-->
-            <phone:PivotItem CacheMode="{x:Null}" Header="stops" Margin="24,28,0,0">
+            <phone:PivotItem CacheMode="{x:Null}" Header="stops">
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>
@@ -126,14 +128,15 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <phone:LongListSelector x:Name="routesList" HorizontalAlignment="Left" Height="585" VerticalAlignment="Top" Width="475" ItemTemplate="{StaticResource ocStopItemTemplate}" SelectionChanged="routesList_SelectionChanged" FontFamily="Segoe WP Light" Margin="-19,57,0,0" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="routesSearch" Text="Stop Number / Stop Name" Height="68" Margin="0,0,24,0" TextWrapping="Wrap" Opacity="0.8" TextChanged="searchBoxText_Changed" GotFocus="OnSearchBoxGotFocus" LostFocus="OnSearchBoxLostFocus" SelectionBackground="White" VerticalAlignment="Top" BorderBrush="#FFD21E00" FontSize="22" Grid.ColumnSpan="2">
+                    <TextBox x:Name="routesSearch" Text="Stop Number / Stop Name" Height="68" Margin="0,-11,0,0" TextWrapping="Wrap" Opacity="0.8" TextChanged="searchBoxText_Changed" GotFocus="OnSearchBoxGotFocus" LostFocus="OnSearchBoxLostFocus" SelectionBackground="White" VerticalAlignment="Top" BorderBrush="#FFD21E00" FontSize="22" Grid.ColumnSpan="2">
                         <TextBox.Background>
                             <ImageBrush Stretch="Uniform" ImageSource="/Assets/search.png" AlignmentX="Right"/>
                         </TextBox.Background>
                     </TextBox>
-                    <ProgressBar x:Name="searchProgressBar" Visibility="Collapsed" RenderTransformOrigin="0.455,0.1" Margin="-19,33,0,0" IsIndeterminate="True" VerticalAlignment="Top" Height="10" Grid.ColumnSpan="2" />
-                    <TextBlock x:Name="searchText" TextWrapping="Wrap" Text="Search for a stop by it's number or name simply by tapping above." VerticalAlignment="Top" Margin="15,175,37,0" Foreground="Black" FontSize="24" TextAlignment="Center" Grid.ColumnSpan="2" Height="64"/>
-                    <Image x:Name="searchSmile" Height="35" VerticalAlignment="Top" Source="/Assets/smile.png" Margin="199,252,222,0" Grid.ColumnSpan="2"/>
+                    <ProgressBar x:Name="searchProgressBar" RenderTransformOrigin="0.455,0.1" Margin="-16,46,0,0" IsIndeterminate="True" VerticalAlignment="Top" Height="10" Grid.ColumnSpan="2" Foreground="#FFE71E00" Visibility="Collapsed" />
+                    <TextBlock x:Name="searchText" TextWrapping="Wrap" Text="Search for a stop by it's number or name simply by tapping above." VerticalAlignment="Top" Margin="0,140,0,0" Foreground="Black" FontSize="24" TextAlignment="Center" Grid.ColumnSpan="2" Height="112"/>
+                    <Image x:Name="searchSmile" Height="35" VerticalAlignment="Top" Source="/Assets/smile.png" Margin="210,252,211,0" Grid.ColumnSpan="2"/>
+                    <Image x:Name="searchFrowny" Height="35" VerticalAlignment="Top" Source="/Assets/frown.png" Margin="210,252,211,0" Grid.ColumnSpan="2" Visibility="Collapsed"/>
 
 
                 </Grid>
