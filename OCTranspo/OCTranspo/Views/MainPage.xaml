@@ -24,29 +24,32 @@
             <Grid x:Name="LayoutRoot" HorizontalAlignment="Left" ShowGridLines="False" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="270"/>
+                    <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="65"/>
+                    <RowDefinition Height="60"/>
                     <RowDefinition Height="3" />
                     <RowDefinition Height="40" />
+                    <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
                 <TextBlock VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"  FontSize="50" Text="{Binding RouteNo}" Foreground="Black" FontFamily="Segoe UI Light" />
 
-                <Grid Grid.Column="1" Grid.Row="0">
-                   <TextBlock VerticalAlignment="Top" FontSize="25" TextTrimming="WordEllipsis" Foreground="Gray"  FontFamily="Segoe UI Light" Text="{Binding RouteLabel}" Margin="5,8,0,0" />
-                    <TextBlock VerticalAlignment="Bottom" FontSize="25" TextTrimming="WordEllipsis" Foreground="DarkGray"  FontFamily="Segoe UI Light" Text="TO RIDEAU CENTRE" Margin="5,8,0,0" />
+                <Grid Grid.Column="1" Grid.Row="0" Margin="10,0,0,0">
+                    <TextBlock VerticalAlignment="Top" FontSize="20" TextTrimming="WordEllipsis" Foreground="Gray"  FontFamily="Segoe UI Light" Text="{Binding FromStopName}" Margin="5,10,0,0" />
+                    <TextBlock VerticalAlignment="Top" FontSize="20" TextTrimming="WordEllipsis" Foreground="DarkGray"  FontFamily="Segoe UI Light" Text="{Binding DirectionalName}" Margin="5,30,0,0" />
                 </Grid>
                 
                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="0" Background="#FFD21E00" Margin="2,0">
-                   <TextBlock FontSize="18" TextTrimming="WordEllipsis" Text=" 7096 " Foreground="White" FontFamily="Segoe UI Light" />
+                    <TextBlock FontSize="18" Padding="6,2,6,2"  HorizontalAlignment="Center" TextTrimming="WordEllipsis" Text="{Binding FromStopNumber}" Foreground="White" FontFamily="Segoe UI Light" FontStyle="Italic" />
                 </Grid>
+                
                 <Image Grid.Column="3" Source="/Assets/arrow.png" HorizontalAlignment="Left" Width="20" Height="20" />
                 <Rectangle Grid.ColumnSpan="4" Grid.Row="1" Height="5" Fill="DarkGray"/>
-                <Grid Grid.Row="2" Grid.ColumnSpan="4">
+                
+                <Grid Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="1" Margin="15,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="5"/>
@@ -67,6 +70,16 @@
         
     </phone:PhoneApplicationPage.Resources>
 
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FFD9D9D9" ForegroundColor="#FFD21E00">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
     <phone:PhoneApplicationPage.FontFamily>
         <StaticResource ResourceKey="PhoneFontFamilyNormal"/>
     </phone:PhoneApplicationPage.FontFamily>
@@ -79,7 +92,7 @@
     
     <Grid x:Name="LayoutRoot" Background="White" Margin="0,10,0,0">
         <Rectangle  VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="81" Fill="#FFD21E00" Margin="0,-13,0,0" />
-        <Image Source="/Assets/logo.png" Width="25" RenderTransformOrigin="-9.29,0.018" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4,-8,0,773" />
+        <Image Source="/Assets/logo.png" Width="25" RenderTransformOrigin="-9.29,0.018" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,-8,0,0" />
         <phone:Pivot Background="Transparent" Foreground="Black" Margin="0,0,0,25">
             <phone:Pivot.HeaderTemplate>
                 <DataTemplate>
@@ -92,7 +105,7 @@
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>
-                <phone:LongListSelector x:Name="favouritesList" HorizontalAlignment="Left" Height="676" VerticalAlignment="Top" Width="460" Margin="10,0,0,0" ItemTemplate="{StaticResource ocFavouriteListItem}" SelectionChanged="routesList_SelectionChanged"/>
+                <phone:LongListSelector x:Name="favouritesList" HorizontalAlignment="Left" Height="676" VerticalAlignment="Top" Width="450" Margin="20,0,0,-3" ItemTemplate="{StaticResource ocFavouriteListItem}" SelectionChanged="routesList_SelectionChanged"/>
             </phone:PivotItem>
 
             <!--Nearby-->

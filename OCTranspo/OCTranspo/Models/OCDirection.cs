@@ -5,7 +5,7 @@ public class OCDirection
 {
 
 	public OCDirection(){}
-
+    
     public static OCDirection newOCDirection(int routeNo, String routeLabel, String direction, String procTime, List<OCTrip> trips)
     {
         OCDirection dir = new OCDirection();
@@ -22,4 +22,9 @@ public class OCDirection
     public String Direction { get; set; }
     public String ProcTime { get; set; }
     public List<OCTrip> Trips { get; set; }
+
+    //Other Attributes for Views
+    public String FromStopName { get; set; }
+    public int FromStopNumber { get; set; }
+    public String DirectionalName { get; set; }
 }

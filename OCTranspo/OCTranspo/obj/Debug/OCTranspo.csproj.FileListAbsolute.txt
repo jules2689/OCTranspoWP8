@@ -144,3 +144,4 @@ C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\obj\Debug\OCTr
 C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\obj\Debug\OCTranspo.dll
 C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\obj\Debug\OCTranspo.pdb
 C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\obj\Debug\XapCacheFile.xml
+C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\obj\Debug\Views\Info.g.cs

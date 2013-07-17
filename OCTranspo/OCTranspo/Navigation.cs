@@ -15,6 +15,17 @@ namespace OCTranspo
         public static void NavigateToStop(String ID, String name)
         {
             String URI = "/Views/stops.xaml?stopID=" + ID.Trim() + "&stopName=" + name.Trim();
+            NavigateTo(URI);
+        }
+
+        public static void NavigateToInfo()
+        {
+            String URI = "/Views/info.xaml";
+            NavigateTo(URI);
+        }
+
+        private static void NavigateTo(String URI)
+        {
             Uri pathURI = new Uri(URI, UriKind.Relative);
             PhoneApplicationFrame ns = (Application.Current.RootVisual as PhoneApplicationFrame);
             ns.Navigate(pathURI);

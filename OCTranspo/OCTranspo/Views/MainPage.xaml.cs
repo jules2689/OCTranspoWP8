@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -17,7 +18,7 @@ namespace OCTranspo
     public partial class MainPage : PhoneApplicationPage
     {
         List<OCStop> routes;
-        List<OCDirection> favourites;
+        ObservableCollection<OCDirection> favourites;
         List<OCStop> nearbyStops;
         Boolean searching;
         DispatcherTimer searchBoxTimer;
@@ -39,10 +40,31 @@ namespace OCTranspo
             //Set List Data Sources
             getNearbyStops();
             routes = new List<OCStop>();
-            favourites = new List<OCDirection>();
-            favourites.Add(OCDirection.newOCDirection(18, "QUILL / GLYNN", ".", ".", new List<OCTrip>()));
-            favourites.Add(OCDirection.newOCDirection(19, "QUILL / GLYNN", ".", ".", new List<OCTrip>()));
+            favourites = new ObservableCollection<OCDirection>();
             this.routesList.ItemsSource = routes;
+            this.favouritesList.ItemsSource = favourites;
+            OCSupport.getRouteSummaryForStop(3009, new UploadStringCompletedEventHandler(processGetRouteSummaryForStop));
+            OCSupport.getNextTripForStop(3009, 95, new UploadStringCompletedEventHandler(processGetNextTripForStop));
+        }
+
+        public void processGetRouteSummaryForStop(Object sender, UploadStringCompletedEventArgs e)
+        {
+            string reply = (string)e.Result;
+            OCRouteSummaryForStop stop = OCSupport.makeRouteSummary(reply);
+            Console.WriteLine(reply);
+        }
+
+        public void processGetNextTripForStop(Object sender, UploadStringCompletedEventArgs e)
+        {
+            string reply = (string)e.Result;
+            OCNextTripForStop stop = OCSupport.makeNextTrip(reply);
+            favourites.Clear();
+            foreach (OCDirection direction in stop.Directions) {
+                direction.FromStopName = stop.StopLabel;
+                direction.FromStopNumber = stop.StopNo;
+                direction.DirectionalName = "to " + direction.RouteLabel.ToUpper();
+                favourites.Add(direction);
+            }
             this.favouritesList.ItemsSource = favourites;
         }
 
@@ -73,7 +95,6 @@ namespace OCTranspo
             nearbyStops = await OCTranspoStopsData.getCloseStops(currentLocation.Center.Latitude, currentLocation.Center.Longitude, currentLocation.ZoomLevel);
             this.nearbyList.ItemsSource = nearbyStops;
         }
-
 
         //Maps Methods***********************************************************************************************************************************************************//
 
@@ -166,6 +187,11 @@ namespace OCTranspo
                 Navigation.NavigateToStop(stop.StopID.ToString(), stop.StopDesc);
             }
             ((LongListSelector)sender).SelectedItem = null;
+        }
+
+        private void ApplicationBarMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Navigation.NavigateToInfo();
         }
 
     }
