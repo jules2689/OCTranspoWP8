@@ -25,7 +25,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <Ellipse Name="stopEllipse" Fill="#FFD21E00" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.ZIndex="5" />
-                    <Rectangle Height="75" Width="5" Fill="DarkGray" Name="stopsRectangle" Visibility="{Binding isLastItem}"/>
+                    <Rectangle Height="75" Width="5" Fill="DarkGray" Name="stopsRectangle"/>
                 </Grid>
                 <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1">
                     <Grid.RowDefinitions>
@@ -37,7 +37,7 @@
                 </Grid>
                 
                 <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="2" Background="#FFD21E00" Margin="2,-4,2,0">
-                    <TextBlock FontSize="18" TextTrimming="WordEllipsis" Text=" 7096 " Foreground="White" FontFamily="Segoe UI Light" VerticalAlignment="CEn" />
+                    <TextBlock FontSize="18" TextTrimming="WordEllipsis" Text=" 7096 " Foreground="White" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Grid>
             </Grid>
         </DataTemplate>
