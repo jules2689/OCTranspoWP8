@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="GeoLocator.cs" />
     <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="Models\OCAPICallObject.cs" />
     <Compile Include="Navigation.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

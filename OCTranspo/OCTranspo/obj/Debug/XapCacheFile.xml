@@ -1,24 +1,24 @@
-﻿<xapCache source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Bin\Debug\OCTranspo_Debug_AnyCPU.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="7/16/2013 5:29:57 PM">
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\obj\Debug\OCTranspo.dll" archivePath="OCTranspo.dll" lastWriteTime="7/16/2013 5:29:56 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Assets\AlignmentGrid.png" archivePath="Assets\AlignmentGrid.png" lastWriteTime="7/13/2013 7:20:00 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Assets\ApplicationIcon.png" archivePath="Assets\ApplicationIcon.png" lastWriteTime="7/13/2013 7:20:00 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Assets\logo.png" archivePath="Assets\logo.png" lastWriteTime="7/14/2013 11:46:43 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Assets\search.png" archivePath="Assets\search.png" lastWriteTime="7/16/2013 4:25:25 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Assets\smile.png" archivePath="Assets\smile.png" lastWriteTime="7/16/2013 4:25:25 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Assets\Tiles\FlipCycleTileLarge.png" archivePath="Assets\Tiles\FlipCycleTileLarge.png" lastWriteTime="7/13/2013 7:20:00 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Assets\Tiles\FlipCycleTileSmall.png" archivePath="Assets\Tiles\FlipCycleTileSmall.png" lastWriteTime="7/13/2013 7:20:00 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Assets\Tiles\IconicTileMediumLarge.png" archivePath="Assets\Tiles\IconicTileMediumLarge.png" lastWriteTime="7/13/2013 7:20:00 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Assets\Tiles\IconicTileSmall.png" archivePath="Assets\Tiles\IconicTileSmall.png" lastWriteTime="7/13/2013 7:20:00 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\README_FIRST.txt" archivePath="README_FIRST.txt" lastWriteTime="7/14/2013 3:42:42 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Toolkit.Content\ApplicationBar.Cancel.png" archivePath="Toolkit.Content\ApplicationBar.Cancel.png" lastWriteTime="7/14/2013 3:42:42 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Toolkit.Content\ApplicationBar.Check.png" archivePath="Toolkit.Content\ApplicationBar.Check.png" lastWriteTime="7/14/2013 3:42:42 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Toolkit.Content\ApplicationBar.Delete.png" archivePath="Toolkit.Content\ApplicationBar.Delete.png" lastWriteTime="7/14/2013 3:42:42 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Toolkit.Content\ApplicationBar.Select.png" archivePath="Toolkit.Content\ApplicationBar.Select.png" lastWriteTime="7/14/2013 3:42:42 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="7/14/2013 4:55:23 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Bin\Debug\Assets\Tiles\FlipCycleTileMedium.png" archivePath="Assets\Tiles\FlipCycleTileMedium.png" lastWriteTime="7/13/2013 7:20:00 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\Community.CsharpSqlite.WinPhone.dll" archivePath="Community.CsharpSqlite.WinPhone.dll" lastWriteTime="7/13/2013 11:05:48 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\packages\WPtoolkit.4.2013.06.11\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll" archivePath="Microsoft.Phone.Controls.Toolkit.dll" lastWriteTime="7/14/2013 3:42:42 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\packages\zlib.net.1.0.4.0\lib\zlib.net.dll" archivePath="zlib.net.dll" lastWriteTime="7/14/2013 4:45:47 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Assets\uMJ24Z4zd-byXlrQik4tCnVePycic0UjGd6tWlfiYg0.png" archivePath="Assets\uMJ24Z4zd-byXlrQik4tCnVePycic0UjGd6tWlfiYg0.png" lastWriteTime="7/13/2013 10:08:53 PM" />
-  <file source="C:\Users\Julian\documents\visual studio 2012\Projects\OCTranspo\OCTranspo\Bin\Debug\Properties\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="7/14/2013 10:25:10 PM" />
+﻿<xapCache source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Bin\Debug\OCTranspo_Debug_AnyCPU.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="7/16/2013 9:13:29 PM">
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\obj\Debug\OCTranspo.dll" archivePath="OCTranspo.dll" lastWriteTime="7/16/2013 9:13:28 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\AlignmentGrid.png" archivePath="Assets\AlignmentGrid.png" lastWriteTime="7/13/2013 7:20:00 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\ApplicationIcon.png" archivePath="Assets\ApplicationIcon.png" lastWriteTime="7/13/2013 7:20:00 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\logo.png" archivePath="Assets\logo.png" lastWriteTime="7/14/2013 11:46:43 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\search.png" archivePath="Assets\search.png" lastWriteTime="7/16/2013 4:25:25 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\smile.png" archivePath="Assets\smile.png" lastWriteTime="7/16/2013 4:25:25 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\Tiles\FlipCycleTileLarge.png" archivePath="Assets\Tiles\FlipCycleTileLarge.png" lastWriteTime="7/13/2013 7:20:00 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\Tiles\FlipCycleTileSmall.png" archivePath="Assets\Tiles\FlipCycleTileSmall.png" lastWriteTime="7/13/2013 7:20:00 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\Tiles\IconicTileMediumLarge.png" archivePath="Assets\Tiles\IconicTileMediumLarge.png" lastWriteTime="7/13/2013 7:20:00 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\Tiles\IconicTileSmall.png" archivePath="Assets\Tiles\IconicTileSmall.png" lastWriteTime="7/13/2013 7:20:00 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\README_FIRST.txt" archivePath="README_FIRST.txt" lastWriteTime="7/14/2013 3:42:42 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Toolkit.Content\ApplicationBar.Cancel.png" archivePath="Toolkit.Content\ApplicationBar.Cancel.png" lastWriteTime="7/14/2013 3:42:42 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Toolkit.Content\ApplicationBar.Check.png" archivePath="Toolkit.Content\ApplicationBar.Check.png" lastWriteTime="7/14/2013 3:42:42 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Toolkit.Content\ApplicationBar.Delete.png" archivePath="Toolkit.Content\ApplicationBar.Delete.png" lastWriteTime="7/14/2013 3:42:42 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Toolkit.Content\ApplicationBar.Select.png" archivePath="Toolkit.Content\ApplicationBar.Select.png" lastWriteTime="7/14/2013 3:42:42 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="7/14/2013 4:55:23 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Bin\Debug\Assets\Tiles\FlipCycleTileMedium.png" archivePath="Assets\Tiles\FlipCycleTileMedium.png" lastWriteTime="7/13/2013 7:20:00 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\Community.CsharpSqlite.WinPhone.dll" archivePath="Community.CsharpSqlite.WinPhone.dll" lastWriteTime="7/13/2013 11:05:48 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\packages\WPtoolkit.4.2013.06.11\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll" archivePath="Microsoft.Phone.Controls.Toolkit.dll" lastWriteTime="7/14/2013 3:42:42 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\packages\zlib.net.1.0.4.0\lib\zlib.net.dll" archivePath="zlib.net.dll" lastWriteTime="7/14/2013 4:45:47 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\uMJ24Z4zd-byXlrQik4tCnVePycic0UjGd6tWlfiYg0.png" archivePath="Assets\uMJ24Z4zd-byXlrQik4tCnVePycic0UjGd6tWlfiYg0.png" lastWriteTime="7/13/2013 10:08:53 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Bin\Debug\Properties\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="7/14/2013 10:25:10 PM" />
 </xapCache>

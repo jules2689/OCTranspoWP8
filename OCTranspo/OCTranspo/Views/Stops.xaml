@@ -25,7 +25,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <Ellipse Name="stopEllipse" Fill="#FFD21E00" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.ZIndex="5" />
-                    <Rectangle Height="75" Width="5" Fill="DarkGray" Name="stopsRectangle" Visibility="{Binding isLastItem}"/>
+                    <Rectangle Height="75" Width="5" Fill="DarkGray" Name="stopsRectangle"/>
                 </Grid>
                 <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1">
                     <Grid.RowDefinitions>
@@ -54,8 +54,8 @@
         <!--TitlePanel contains the name of the application and page title-->
         <Grid Grid.Row="0" Margin="12,17,0,28">
             <Rectangle  VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="80" Fill="#FFD21E00" Margin="-17,-18,0,0" />
-            <TextBlock Name="stopName" TextTrimming="WordEllipsis" Text="page name" FontSize="35" Margin="50,10,19,28" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" VerticalAlignment="Center" FontFamily="Segoe WP Light"/>
-            <TextBlock x:Name="stopID" Text="18" FontSize="40" Margin="0,5,431,33" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="47"/>
+            <TextBlock Name="stopName" TextTrimming="WordEllipsis" Text="page name" FontSize="35" Margin="50,10,19,28" Foreground="White" VerticalAlignment="Center" FontFamily="Segoe WP Light"/>
+            <TextBlock x:Name="stopID" Text="18" FontSize="40" Margin="0,5,431,33" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="47"/>
         </Grid>
 
         <!--ContentPanel - place additional content here-->

@@ -4,12 +4,14 @@ public class OCRoute
 {
     public OCRoute(){}
 
-    public void newOCRoute(int routeNo, int directionId, String direction, String routeHeading)
+    public static OCRoute newOCRoute(int routeNo, int directionId, String direction, String routeHeading)
 	{
-        this.RouteNumber = routeNo;
-        this.DirectionID = directionId;
-        this.Direction = direction;
-        this.RouteHeading = routeHeading;
+        OCRoute route = new OCRoute();
+        route.RouteNumber = routeNo;
+        route.DirectionID = directionId;
+        route.Direction = direction;
+        route.RouteHeading = routeHeading;
+        return route;
 	}
 
     public int RouteNumber { get; set; }
