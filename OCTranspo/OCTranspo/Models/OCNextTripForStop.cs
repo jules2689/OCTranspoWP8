@@ -5,11 +5,13 @@ public class OCNextTripForStop
 {
     public OCNextTripForStop(){}
 
-    public void newOCNextTripForStop(int stopNo, String stopLabel, List<OCDirection> directions)
+    public static OCNextTripForStop newOCNextTripForStop(int stopNo, String stopLabel, List<OCDirection> directions)
 	{
-        this.StopNo = stopNo;
-        this.StopLabel = stopLabel;
-        this.Directions = directions;
+        OCNextTripForStop direction = new OCNextTripForStop();
+        direction.StopNo = stopNo;
+        direction.StopLabel = stopLabel;
+        direction.Directions = directions;
+        return direction;
 	}
 
     public int StopNo { get; set;  }

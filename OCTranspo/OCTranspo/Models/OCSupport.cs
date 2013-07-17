@@ -115,7 +115,7 @@ public class OCSupport
         return rts;
     }
 
-    private static List<OCDirection> makeDirection(XElement routeDir)
+    private static List<OCDirection> makeDirection(XElement routeDir) 
     {
         List<OCDirection> dirs = new List<OCDirection>();
         int routeNo;
@@ -174,7 +174,7 @@ public class OCSupport
         String results = "";
         int i = 0, len = xml.Length;
         bool body = false;
-
+        
         xml = Regex.Replace(xml, "><", ">XMLBREAKER<");
         XML = Regex.Split(xml, "XMLBREAKER");
 
