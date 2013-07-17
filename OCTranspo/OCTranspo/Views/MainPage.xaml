@@ -15,7 +15,7 @@
             <Grid x:Name="LayoutRoot" HorizontalAlignment="Left" ShowGridLines="False" Height="50">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="370"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock FontWeight="Bold" VerticalAlignment="Center" Grid.Column="0"  FontSize="40" Text="{Binding StopID}" Foreground="Black" />
                 <TextBlock VerticalAlignment="Center" Grid.Column="1" FontSize="30" TextTrimming="WordEllipsis" Text="{Binding StopDesc}" Foreground="Black" />
@@ -108,11 +108,15 @@
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>
-                <phone:LongListSelector x:Name="favouritesList" HorizontalAlignment="Left" Height="676" VerticalAlignment="Top" Width="450" Margin="20,0,0,-3" ItemTemplate="{StaticResource ocFavouriteListItem}"/>
+                <Grid>
+                    <TextBlock Name="favouritesSorry" TextWrapping="Wrap" TextTrimming="WordEllipsis" Text="Sorry, there was an issue retrieving your favourites. Check your data connection and try again." Foreground="Black" Margin="59,136,57,0" Canvas.ZIndex="5" TextAlignment="Center" Height="114" VerticalAlignment="Top" Visibility="Collapsed"/>
+                    <phone:LongListSelector x:Name="favouritesList" HorizontalAlignment="Left" Height="676" VerticalAlignment="Top" Width="450" Margin="20,0,0,-3" ItemTemplate="{StaticResource ocFavouriteListItem}"/>
+                    <Image Name="faveFrowny" HorizontalAlignment="Left" Height="47"  VerticalAlignment="Top" Width="44" Source="/Assets/frown.png" Margin="217,240,0,0" Visibility="Collapsed" />
+                </Grid>
             </phone:PivotItem>
 
             <!--Nearby-->
-            <phone:PivotItem CacheMode="{x:Null}" Header="nearby" Margin="27,4,0,20" VerticalAlignment="Top">
+            <phone:PivotItem CacheMode="{x:Null}" Header="nearby" Margin="27,4,0,23" VerticalAlignment="Top">
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>

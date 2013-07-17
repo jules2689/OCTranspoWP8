@@ -75,16 +75,19 @@ namespace OCTranspo
                         favourites.Add(direction);
                     }
                     this.favouritesList.ItemsSource = favourites;
+                    setFavouriteErrorMessage(false, favourites.Count > 0);
                     loadingProgressBar.IsVisible = false;
                 }
                 else
                 {
                     loadingProgressBar.IsVisible = false;
+                    setFavouriteErrorMessage(true, false);
                 }
             }
-            catch (WebException webEx)
+            catch
             {
                 loadingProgressBar.IsVisible = false;
+                setFavouriteErrorMessage(true, false);
                 MessageBox.Show("There was an issue getting your data! Please check your data connection and try again.");
             }
         }
@@ -112,23 +115,30 @@ namespace OCTranspo
         //Nearby List Methods***********************************************************************************************************************************************************//
 
         private async void getNearbyStops()
-        {
-            Geocoordinate myCoordinate = await GeoLocator.getMyLocation();
-            if (myCoordinate != null)
-            {
-                nearbyStops = await OCTranspoStopsData.getCloseStops(myCoordinate.Latitude, myCoordinate.Longitude, currentLocation.ZoomLevel);
-                this.nearbyList.ItemsSource = nearbyStops;
+         {
+             try
+             {
+                 Geocoordinate myCoordinate = await GeoLocator.getMyLocation();
+                 if (myCoordinate != null)
+                 {
+                     nearbyStops = await OCTranspoStopsData.getCloseStops(myCoordinate.Latitude, myCoordinate.Longitude, currentLocation.ZoomLevel);
+                     this.nearbyList.ItemsSource = nearbyStops;
 
-                setNearbyErrorMessage(true, nearbyStops.Count > 0);
-            }
-            else
-            {
-                nearbySorry.Visibility = nearbyStops.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
-                nearbyFrown.Visibility = nearbyStops.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
-                setNearbyErrorMessage(true, false);
-            }
+                     setNearbyErrorMessage(true, nearbyStops.Count > 0);
+                 }
+                 else
+                 {
+                     nearbySorry.Visibility = nearbyStops.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+                     nearbyFrown.Visibility = nearbyStops.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+                     setNearbyErrorMessage(true, false);
+                 }
+             }
+             catch
+             {
+                 setNearbyErrorMessage(false, false);
+             }
         }
-
+        //Sorry, there was an issue retrieving your favourites. Check your data connection and try again.
         private void setNearbyErrorMessage(bool GPSEnabled, bool foundItems)
         {
             if (!GPSEnabled)
@@ -152,6 +162,28 @@ namespace OCTranspo
             {
                 nearbySorry.Visibility = Visibility.Collapsed;
                 nearbyFrown.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void setFavouriteErrorMessage(bool error, bool foundItems)
+        {
+            if (error)
+            {
+                favouritesSorry.Text = "Sorry, there was an issue retrieving your favourites. Check your data connection and try again.";
+                favouritesSorry.Visibility = Visibility.Visible;
+                faveFrowny.Visibility = Visibility.Visible;
+            }
+            else if (!error && !foundItems)
+            {
+                favouritesSorry.Text = "You have no favourites yet, try adding a route you use often for quick access!";
+                favouritesSorry.Visibility = Visibility.Collapsed;
+                faveFrowny.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                favouritesSorry.Text = "Sorry, there was an issue retrieving your favourites. Check your data connection and try again.";
+                favouritesSorry.Visibility = Visibility.Collapsed;
+                faveFrowny.Visibility = Visibility.Collapsed;
             }
         }
 

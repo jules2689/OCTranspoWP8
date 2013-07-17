@@ -64,9 +64,11 @@
             <TextBlock HorizontalAlignment="Left" Margin="49,320,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="248" Width="360" Foreground="Black" TextAlignment="Center">
             	<Run Text="All Rights Reserved. Copyright © 2013."/>
             	<LineBreak/>
+            	<Run Text="J. Nadeau | A.Pawliszko | C.Babineau"/>
+            	<LineBreak/>
             	<Run/>
             	<LineBreak/>
-            	<Run Text="OCTranspo, Logo, Colours and all other OCTranspo Information and Data is property of OCTranspo."/>
+            	<Run Text="OCTranspo, Logo, Colours and all other OCTranspo Information and Data is property and trademarks of OCTranspo."/>
             	<LineBreak/>
             	<Run/>
             	<LineBreak/>
