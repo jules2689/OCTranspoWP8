@@ -219,5 +219,10 @@ namespace OCTranspo
                 throw;
             }
         }
+
+        private void ApplicationBarMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Navigation.NavigateToInfo();
+        }
     }
 }

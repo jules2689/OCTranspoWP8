@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using SQLite;
+using System.Collections.ObjectModel;
 
 namespace OCTranspo.Models
 {
@@ -5582,7 +5583,8 @@ namespace OCTranspo.Models
         }
 
 
-        public static async Task<List<OCStop>> getCloseStops(double latitude, double longitude, double zoomLevel){
+        public static async Task<ObservableCollection<OCStop>> getCloseStops(double latitude, double longitude, double zoomLevel)
+        {
             //TODO Math.
             SQLiteAsyncConnection conn = new SQLiteAsyncConnection("OCStop");
             var count = await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='OCStop'");
@@ -5594,7 +5596,8 @@ namespace OCTranspo.Models
                 " AND (StopLong BETWEEN " + (longitude - lowerBound) + " AND " + (longitude + upperBound) + ")) ORDER BY StopID;";
                
                 List<OCStop> stops = await conn.QueryAsync<OCStop>(Query);
-                return stops;
+                ObservableCollection<OCStop> stopsCollection = new ObservableCollection<OCStop>(stops);
+                return stopsCollection;
             }
             else
             {

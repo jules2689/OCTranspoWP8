@@ -3,8 +3,11 @@
        xmlns:maptk="clr-namespace:Microsoft.Phone.Maps.Toolkit;assembly=Microsoft.Phone.Controls.Toolkit"
        x:Class="OCTranspo.MainPage"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="False" mc:Ignorable="d">
-
+    shell:SystemTray.IsVisible="True" shell:SystemTray.Opacity="0" mc:Ignorable="d">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True" IsVisible="False" Text="Loading map data ..."
+                             x:Name="loadingProgressBar" />
+    </shell:SystemTray.ProgressIndicator>
     <phone:PhoneApplicationPage.Resources>
 
         <!-- Layout of the Nearby List Items-->
@@ -56,7 +59,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock VerticalAlignment="Center" Grid.Column="0"  FontSize="20" TextTrimming="WordEllipsis" Text="10:45 11:46 12:45" Foreground="Green" />
-                    <TextBlock VerticalAlignment="Center" Grid.Column="2"  FontSize="20" TextTrimming="WordEllipsis" Text="1:50" Foreground="Gray" />
+                    <TextBlock VerticalAlignment="Center" Grid.Column="2"  FontSize="20" TextTrimming="WordEllipsis" Text="1:50 2:10 2:30 2:50 3:50" Foreground="Gray" />
                 </Grid>
                </Grid>
         </DataTemplate>
@@ -72,8 +75,8 @@
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FFD9D9D9" ForegroundColor="#FFD21E00">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/add.png" Text="Add new"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
             </shell:ApplicationBar.MenuItems>
@@ -91,9 +94,9 @@
     </phone:PhoneApplicationPage.Foreground>
     
     <Grid x:Name="LayoutRoot" Background="White" Margin="0,10,0,0">
-        <Rectangle  VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="81" Fill="#FFD21E00" Margin="0,-13,0,0" />
-        <Image Source="/Assets/logo.png" Width="25" RenderTransformOrigin="-9.29,0.018" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,-8,0,0" />
-        <phone:Pivot Background="Transparent" Foreground="Black" Margin="0,0,0,25">
+        <Rectangle  VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="105" Fill="#FFD21E00" Margin="0,-13,0,0" />
+        <Image Source="/Assets/logo.png" Width="25" RenderTransformOrigin="-9.29,0.018" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,16,0,0" />
+        <phone:Pivot Background="Transparent" Foreground="Black" Margin="0,24,0,-14" SelectionChanged="Pivot_SelectionChanged_1">
             <phone:Pivot.HeaderTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}" Foreground="White" FontSize="40"/>
@@ -101,7 +104,7 @@
             </phone:Pivot.HeaderTemplate>
 
             <!--Favourites-->
-            <phone:PivotItem CacheMode="{x:Null}" Header="favourites" Margin="0,28,0,0">
+            <phone:PivotItem CacheMode="{x:Null}" Header="favourites" Margin="0,4,0,0">
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>
@@ -109,7 +112,7 @@
             </phone:PivotItem>
 
             <!--Nearby-->
-            <phone:PivotItem CacheMode="{x:Null}" Header="nearby" Margin="27,28,0,0">
+            <phone:PivotItem CacheMode="{x:Null}" Header="nearby" Margin="27,4,0,0">
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>
@@ -119,11 +122,11 @@
             </phone:PivotItem>
 
             <!--Map-->
-            <phone:PivotItem CacheMode="{x:Null}" Header="map" Margin="0,0,0,0">
+            <phone:PivotItem CacheMode="{x:Null}" Header="map" Margin="12,4,12,0" >
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>
-                    <maps:Map Name="currentLocation" HorizontalAlignment="Left" Width="480" PedestrianFeaturesEnabled="True" ZoomLevel="15" CenterChanged="currentLocation_CenterChanged" Margin="0,5,0,-26">
+                    <maps:Map Name="currentLocation" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="480" PedestrianFeaturesEnabled="True" ZoomLevel="15" CenterChanged="currentLocation_CenterChanged" Height="719">
                         <maps:Map.Center>
                             <Location:GeoCoordinate Altitude="NaN" Course="NaN" HorizontalAccuracy="NaN" Longitude="-75.6919" Latitude="45.4214" Speed="NaN" VerticalAccuracy="NaN"/>
                         </maps:Map.Center>
@@ -131,7 +134,7 @@
             </phone:PivotItem>
 
             <!--Stops-->
-            <phone:PivotItem CacheMode="{x:Null}" Header="stops">
+            <phone:PivotItem CacheMode="{x:Null}" Header="stops" Margin="12,4,12,0">
                 <phone:PivotItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PivotItem.RenderTransform>
@@ -140,13 +143,13 @@
                         <ColumnDefinition Width="0*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <phone:LongListSelector x:Name="routesList" HorizontalAlignment="Left" Height="585" VerticalAlignment="Top" Width="475" ItemTemplate="{StaticResource ocStopItemTemplate}" SelectionChanged="routesList_SelectionChanged" FontFamily="Segoe WP Light" Margin="-19,57,0,0" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="routesSearch" Text="Stop Number / Stop Name" Height="68" Margin="0,-11,0,0" TextWrapping="Wrap" Opacity="0.8" TextChanged="searchBoxText_Changed" GotFocus="OnSearchBoxGotFocus" LostFocus="OnSearchBoxLostFocus" SelectionBackground="White" VerticalAlignment="Top" BorderBrush="#FFD21E00" FontSize="22" Grid.ColumnSpan="2">
+                    <phone:LongListSelector x:Name="routesList" HorizontalAlignment="Left" Height="560" VerticalAlignment="Top" Width="475" ItemTemplate="{StaticResource ocStopItemTemplate}" SelectionChanged="routesList_SelectionChanged" FontFamily="Segoe WP Light" Margin="-19,82,0,0" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="routesSearch" Text="Stop Number / Stop Name" Height="68" TextWrapping="Wrap" Opacity="0.8" TextChanged="searchBoxText_Changed" GotFocus="OnSearchBoxGotFocus" LostFocus="OnSearchBoxLostFocus" SelectionBackground="White" VerticalAlignment="Top" BorderBrush="#FFD21E00" FontSize="22" Grid.ColumnSpan="2" Margin="0,14,0,0">
                         <TextBox.Background>
                             <ImageBrush Stretch="Uniform" ImageSource="/Assets/search.png" AlignmentX="Right"/>
                         </TextBox.Background>
                     </TextBox>
-                    <ProgressBar x:Name="searchProgressBar" RenderTransformOrigin="0.455,0.1" Margin="-16,46,0,0" IsIndeterminate="True" VerticalAlignment="Top" Height="10" Grid.ColumnSpan="2" Foreground="#FFE71E00" Visibility="Collapsed" />
+                    <ProgressBar x:Name="searchProgressBar" RenderTransformOrigin="0.455,0.1" Margin="-16,72,0,0" IsIndeterminate="True" VerticalAlignment="Top" Height="10" Grid.ColumnSpan="2" Foreground="#FFE71E00" Visibility="Collapsed" />
                     <TextBlock x:Name="searchText" TextWrapping="Wrap" Text="Search for a stop by it's number or name simply by tapping above." VerticalAlignment="Top" Margin="0,140,0,0" Foreground="Black" FontSize="24" TextAlignment="Center" Grid.ColumnSpan="2" Height="112"/>
                     <Image x:Name="searchSmile" Height="35" VerticalAlignment="Top" Source="/Assets/smile.png" Margin="210,252,211,0" Grid.ColumnSpan="2"/>
                     <Image x:Name="searchFrowny" Height="35" VerticalAlignment="Top" Source="/Assets/frown.png" Margin="210,252,211,0" Grid.ColumnSpan="2" Visibility="Collapsed"/>
@@ -154,7 +157,6 @@
 
                 </Grid>
             </phone:PivotItem>
-
         </phone:Pivot>
     </Grid>
     <!--LayoutRoot is the root grid where all page content is placed-->

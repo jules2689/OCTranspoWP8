@@ -8,6 +8,60 @@
     <!--Application Resources-->
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:OCTranspo" x:Key="LocalizedStrings"/>
+
+        <shell:ApplicationBar x:Key="DefaultAppBar" IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FFD9D9D9" ForegroundColor="#FFD21E00">
+            <shell:ApplicationBarIconButton x:Name="newButton" IconUri="/Assets/AppBar/add.png" Text="Add new"/>
+            <shell:ApplicationBarIconButton x:Name="pinButton" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+
+        <shell:ApplicationBar x:Key="AppBarFavourites" IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FFD9D9D9" ForegroundColor="#FFD21E00">
+            <shell:ApplicationBarIconButton x:Name="newButton1" IconUri="/Assets/AppBar/add.png" Text="Add new"/>
+            <shell:ApplicationBarIconButton x:Name="pinButton1" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+
+        <shell:ApplicationBar x:Key="AppBarNearby" IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FFD9D9D9" ForegroundColor="#FFD21E00">
+            <shell:ApplicationBarIconButton x:Name="findButton2" IconUri="/Assets/AppBar/location.png" Text="find me" />
+            <shell:ApplicationBarIconButton x:Name="pinButton2" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+
+        <shell:ApplicationBar x:Key="AppBarMap" IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FFD9D9D9" ForegroundColor="#FFD21E00">
+            <shell:ApplicationBarIconButton x:Name="findButton3" IconUri="/Assets/AppBar/location.png" Text="find me"/>
+            <shell:ApplicationBarIconButton x:Name="pinButton3" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+
+        <shell:ApplicationBar x:Key="AppBarStops" IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FFD9D9D9" ForegroundColor="#FFD21E00">
+            <shell:ApplicationBarIconButton x:Name="PinButton4" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+
+        <shell:ApplicationBar x:Key="AppBarRoute" IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FFD9D9D9" ForegroundColor="#FFD21E00">
+            <shell:ApplicationBarIconButton x:Name="PinButton5" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+
+        <shell:ApplicationBar x:Key="AppBarRouteStops" IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FFD9D9D9" ForegroundColor="#FFD21E00">
+            <shell:ApplicationBarIconButton x:Name="PinButton6" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

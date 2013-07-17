@@ -1,6 +1,11 @@
-﻿<xapCache source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Bin\Debug\OCTranspo_Debug_AnyCPU.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="7/16/2013 11:46:21 PM">
-  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\obj\Debug\OCTranspo.dll" archivePath="OCTranspo.dll" lastWriteTime="7/16/2013 11:46:20 PM" />
+﻿<xapCache source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Bin\Debug\OCTranspo_Debug_AnyCPU.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="7/17/2013 1:41:11 AM">
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\obj\Debug\OCTranspo.dll" archivePath="OCTranspo.dll" lastWriteTime="7/17/2013 1:41:10 AM" />
   <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\AlignmentGrid.png" archivePath="Assets\AlignmentGrid.png" lastWriteTime="7/13/2013 7:20:00 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\AppBar\add.png" archivePath="Assets\AppBar\add.png" lastWriteTime="9/24/2012 1:25:46 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\AppBar\location.png" archivePath="Assets\AppBar\location.png" lastWriteTime="7/17/2013 12:44:34 AM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\AppBar\minus.png" archivePath="Assets\AppBar\minus.png" lastWriteTime="9/24/2012 1:25:46 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\AppBar\new.png" archivePath="Assets\AppBar\new.png" lastWriteTime="9/24/2012 1:25:46 PM" />
+  <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\AppBar\pin.png" archivePath="Assets\AppBar\pin.png" lastWriteTime="7/17/2013 12:02:11 AM" />
   <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\ApplicationIcon.png" archivePath="Assets\ApplicationIcon.png" lastWriteTime="7/13/2013 7:20:00 PM" />
   <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\arrow.png" archivePath="Assets\arrow.png" lastWriteTime="7/16/2013 10:34:51 PM" />
   <file source="C:\Users\Julian\Documents\GitHub\OCTranspoWP8\OCTranspo\OCTranspo\Assets\frown.png" archivePath="Assets\frown.png" lastWriteTime="7/16/2013 10:34:51 PM" />

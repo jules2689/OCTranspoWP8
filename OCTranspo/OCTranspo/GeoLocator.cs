@@ -11,7 +11,8 @@ using System.Windows.Media;
 using System.Windows;
 using OCTranspo.Models;
 using Microsoft.Phone.Maps.Toolkit;
-
+using System.Collections.ObjectModel;
+ 
 namespace OCTranspo
 {
     class GeoLocator
@@ -20,19 +21,16 @@ namespace OCTranspo
 
         public static async void centerMapOnCurrentLocation(Map map)
         {
-            Geolocator geolocator = new Geolocator();
-            geolocator.DesiredAccuracyInMeters = 50;
+            Geocoordinate coordinate = await getMyLocation();
+            map.Center = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
+        }
 
-            try
-            {
-                Geoposition geoposition = await geolocator.GetGeopositionAsync(
-                    maximumAge: TimeSpan.FromMinutes(5),
-                    timeout: TimeSpan.FromSeconds(10)
-                    );
-
-                map.Center = new GeoCoordinate(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude);
-            }
-            catch (Exception ex) {}
+        public static async Task<Geocoordinate> getMyLocation()
+        {
+            Geolocator myGeolocator = new Geolocator();
+            Geoposition myGeoposition = await myGeolocator.GetGeopositionAsync();
+            Geocoordinate myGeocoordinate = myGeoposition.Coordinate;
+            return myGeocoordinate;
         }
 
         public static async void drawMapMarkers(Map map)
@@ -41,19 +39,19 @@ namespace OCTranspo
             {
                 map.Layers.Clear();
                 MapLayer mapLayer = new MapLayer();
-                List<OCStop> stops = await OCTranspoStopsData.getCloseStops(map.Center.Latitude, map.Center.Longitude, map.ZoomLevel);
+                ObservableCollection<OCStop> stops = await OCTranspoStopsData.getCloseStops(map.Center.Latitude, map.Center.Longitude, map.ZoomLevel);
                 foreach (OCStop stop in stops)
                 {
                     drawMapMarker(stop, Color.FromArgb(255,210,30,0), mapLayer, true);
-
                 }
-                layMyLocation(map, mapLayer);
+                layMyLocation(mapLayer);
                 map.Layers.Add(mapLayer);
             }
         }
 
-        private static void layMyLocation(Map map, MapLayer mapLayer)
+        private static async void layMyLocation(MapLayer mapLayer)
         {
+            Geocoordinate myCoordinate = await getMyLocation();
             Ellipse e = new Ellipse();
             Color blue = Color.FromArgb(255, 0, 119, 210);
             e.StrokeThickness = 5;
@@ -61,9 +59,9 @@ namespace OCTranspo
             e.Fill = new SolidColorBrush(blue);
             e.Fill.Opacity = 0.9;
             e.Height = e.Width = 20;
-
-            layMarker(e, map.Center.Latitude, map.Center.Longitude, mapLayer);
+            layMarker(e, myCoordinate.Latitude, myCoordinate.Longitude, mapLayer);
         }
+
         private static void drawMapMarker(OCStop stop, Color color, MapLayer mapLayer, Boolean action)
         {
             // Create a map marker

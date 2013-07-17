@@ -12,6 +12,7 @@ using OCTranspo.Resources;
 using OCTranspo.Models;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using Windows.Devices.Geolocation;
 
 namespace OCTranspo
 {
@@ -19,7 +20,7 @@ namespace OCTranspo
     {
         List<OCStop> routes;
         ObservableCollection<OCDirection> favourites;
-        List<OCStop> nearbyStops;
+        ObservableCollection<OCStop> nearbyStops;
         Boolean searching;
         DispatcherTimer searchBoxTimer;
         DispatcherTimer mapTimer;
@@ -28,6 +29,7 @@ namespace OCTranspo
         public MainPage()
         {
             searching = false;
+            ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["DefaultAppBar"];
             OCTranspoStopsData.initDB();
             InitializeComponent();
             setupLists();
@@ -43,8 +45,9 @@ namespace OCTranspo
             favourites = new ObservableCollection<OCDirection>();
             this.routesList.ItemsSource = routes;
             this.favouritesList.ItemsSource = favourites;
-            OCSupport.getRouteSummaryForStop(3009, new UploadStringCompletedEventHandler(processGetRouteSummaryForStop));
             OCSupport.getNextTripForStop(3009, 95, new UploadStringCompletedEventHandler(processGetNextTripForStop));
+            OCSupport.getRouteSummaryForStop(3009, new UploadStringCompletedEventHandler(processGetRouteSummaryForStop));
+            
         }
 
         public void processGetRouteSummaryForStop(Object sender, UploadStringCompletedEventArgs e)
@@ -56,16 +59,28 @@ namespace OCTranspo
 
         public void processGetNextTripForStop(Object sender, UploadStringCompletedEventArgs e)
         {
-            string reply = (string)e.Result;
-            OCNextTripForStop stop = OCSupport.makeNextTrip(reply);
-            favourites.Clear();
-            foreach (OCDirection direction in stop.Directions) {
-                direction.FromStopName = stop.StopLabel;
-                direction.FromStopNumber = stop.StopNo;
-                direction.DirectionalName = "to " + direction.RouteLabel.ToUpper();
-                favourites.Add(direction);
+            try
+            {
+                loadingProgressBar.IsVisible = true;
+                loadingProgressBar.Text = "Loading favourites data ...";
+                string reply = (string)e.Result;
+                OCNextTripForStop stop = OCSupport.makeNextTrip(reply);
+                favourites.Clear();
+                foreach (OCDirection direction in stop.Directions)
+                {
+                    direction.FromStopName = stop.StopLabel;
+                    direction.FromStopNumber = stop.StopNo;
+                    direction.DirectionalName = "to " + direction.RouteLabel.ToUpper();
+                    favourites.Add(direction);
+                }
+                this.favouritesList.ItemsSource = favourites;
+                loadingProgressBar.IsVisible = false;
             }
-            this.favouritesList.ItemsSource = favourites;
+            catch (WebException webEx)
+            {
+                loadingProgressBar.IsVisible = false;
+                MessageBox.Show("There was an issue getting your data! Please check your data connection and try again.");
+            }
         }
 
         private void setupSearchBox()
@@ -92,14 +107,25 @@ namespace OCTranspo
 
         private async void getNearbyStops()
         {
-            nearbyStops = await OCTranspoStopsData.getCloseStops(currentLocation.Center.Latitude, currentLocation.Center.Longitude, currentLocation.ZoomLevel);
+            Geocoordinate myCoordinate = await GeoLocator.getMyLocation();
+            nearbyStops = await OCTranspoStopsData.getCloseStops(myCoordinate.Latitude, myCoordinate.Longitude, currentLocation.ZoomLevel);
             this.nearbyList.ItemsSource = nearbyStops;
         }
 
         //Maps Methods***********************************************************************************************************************************************************//
 
+        private void currentLocation_ZoomLevelChanged(object sender, Microsoft.Phone.Maps.Controls.MapZoomLevelChangedEventArgs e)
+        {
+            loadingProgressBar.Text = "Loading map data ...";
+            loadingProgressBar.IsVisible = true;
+            mapTimer.Stop();
+            mapTimer.Start();
+        }
+
         private void currentLocation_CenterChanged(object sender, Microsoft.Phone.Maps.Controls.MapCenterChangedEventArgs e)
         {
+            loadingProgressBar.Text = "Loading map data ...";
+            loadingProgressBar.IsVisible = true;
             mapTimer.Stop();
             mapTimer.Start();
         }
@@ -113,9 +139,9 @@ namespace OCTranspo
                 //TODO: Called too much, don't get a chance to draw markers before change.
                 GeoLocator.drawMapMarkers(currentLocation);
                 searching = false;
+                loadingProgressBar.IsVisible = false;
             }
         }
-
 
         //Search Box Methods***********************************************************************************************************************************************************//
 
@@ -131,27 +157,34 @@ namespace OCTranspo
             searchProgressBar.Visibility = Visibility.Visible;
             String query = routesSearch.Text;
             routes = await OCTranspoStopsData.getStopByNameOrID(query);
-            searchHasItems(routes.Count > 0);
-            if (routes.Count == 0 && query.Length > 0) 
-            { 
-                searchText.Text = "Sorry, we couldn't find a stop with that name or code, please try another search.";
-                searchSmile.Visibility = Visibility.Collapsed;
-                searchFrowny.Visibility = Visibility.Visible;
-            } else 
-            {
-                searchText.Text = "Search for a stop by it's number or name simply by tapping above.";
-                searchFrowny.Visibility = Visibility.Collapsed;
-                searchSmile.Visibility = Visibility.Visible;
-            }
+            searchHasItems(routes.Count > 0, query.Length > 0);
             this.routesList.ItemsSource = routes;
             searchBoxTimer.Stop();
             searchProgressBar.Visibility = Visibility.Collapsed;
         }
 
-        private void searchHasItems(Boolean hasItems)
+        private void searchHasItems(bool hasItems, bool hasQuery)
         {
-            searchSmile.Visibility = hasItems ? Visibility.Collapsed : Visibility.Visible;
-            searchText.Visibility = hasItems ? Visibility.Collapsed : Visibility.Visible;
+            if (!hasItems && hasQuery)
+            {
+                searchText.Text = "Sorry, we couldn't find a stop with that name or code, please try another search.";
+                searchText.Visibility = Visibility.Visible;
+                searchSmile.Visibility = Visibility.Collapsed;
+                searchFrowny.Visibility = Visibility.Visible;
+            }
+            else if (!hasItems && !hasQuery)
+            {
+                searchText.Text = "Search for a stop by it's number or name simply by tapping above.";
+                searchText.Visibility = Visibility.Visible;
+                searchFrowny.Visibility = Visibility.Collapsed;
+                searchSmile.Visibility = Visibility.Visible;
+            }
+            else if (hasItems)
+            {
+                searchText.Visibility = Visibility.Collapsed;
+                searchFrowny.Visibility = Visibility.Collapsed;
+                searchSmile.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void OnSearchBoxGotFocus(object sender, RoutedEventArgs e)
@@ -167,7 +200,7 @@ namespace OCTranspo
             if (string.IsNullOrEmpty(routesSearch.Text))
             {
                 routesSearch.Text = "Stop Number / Stop Name";
-                searchHasItems(false);
+                searchHasItems(false, false);
             }
         }
 
@@ -194,5 +227,49 @@ namespace OCTranspo
             Navigation.NavigateToInfo();
         }
 
+        private void ApplicationBarIconButton_Click_1(object sender, EventArgs e)
+        {
+                loadingProgressBar.Text = "Loading map data ...";
+                loadingProgressBar.IsVisible = true;
+                mapTimer.Stop();
+                searching = true;
+                //TODO: Called too much, don't get a chance to draw markers before change.
+                GeoLocator.centerMapOnCurrentLocation(currentLocation);
+                GeoLocator.drawMapMarkers(currentLocation);
+                getNearbyStops();
+                searching = false;
+                loadingProgressBar.IsVisible = false;
+        }
+
+        private void Pivot_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            switch (((Pivot)sender).SelectedIndex)
+            {
+                case 0:
+                    ApplicationBar = ((ApplicationBar)Application.Current.Resources["AppBarFavourites"]);
+                    ApplicationBarIconButton newButton1 = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+                    ApplicationBarIconButton pinButton1 = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+                    break;
+
+                case 1:
+                    ApplicationBar = ((ApplicationBar)Application.Current.Resources["AppBarNearby"]);
+                    ApplicationBarIconButton findButton2 = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+                    findButton2.Click += ApplicationBarIconButton_Click_1;
+                    ApplicationBarIconButton pinButton2 = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+                    break;
+
+                case 2:
+                    ApplicationBar = ((ApplicationBar)Application.Current.Resources["AppBarMap"]);
+                    ApplicationBarIconButton findButton3 = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+                    findButton3.Click += ApplicationBarIconButton_Click_1;
+                    ApplicationBarIconButton pinButton3 = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+                    break;
+
+                case 3:
+                    ApplicationBar = ((ApplicationBar)Application.Current.Resources["AppBarStops"]);
+                    ApplicationBarIconButton pinButton4 = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+                    break;
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{c0b217ed-be05-4978-bdba-1157eb96afe1}" Title="OCTranspo" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="OCTranspo-Ottawa" Description="Sample description" Publisher="OCTranspo" PublisherID="{17b734a8-ab14-4619-909d-4086703d241c}">
+  <App xmlns="" ProductID="{c0b217ed-be05-4978-bdba-1157eb96afe1}" Title="OCTranspo" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="JAC" Description="OC Transpo mobile app for Windows Phone 8 features interactive mapping, favourite routes, live searching, nearby stop searching, and more!" Publisher="OCTranspo" PublisherID="{17b734a8-ab14-4619-909d-4086703d241c}">
     <IconPath IsRelative="true" IsResource="false">Assets\uMJ24Z4zd-byXlrQik4tCnVePycic0UjGd6tWlfiYg0.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -18,20 +18,24 @@
     <Tokens>
       <PrimaryToken TokenID="OCTranspoToken" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">tile-small.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>OCTranspo</Title>
+          <BackgroundImageURI IsRelative="true" IsResource="false">tile-medium.png</BackgroundImageURI>
+          <Title>
+          </Title>
           <BackContent>
           </BackContent>
-          <BackBackgroundImageURI>
+          <BackBackgroundImageURI IsRelative="true" IsResource="false">
           </BackBackgroundImageURI>
           <BackTitle>
           </BackTitle>
-          <DeviceLockImageURI>
+          <LargeBackgroundImageURI IsRelative="true" IsResource="false">tile-large.png</LargeBackgroundImageURI>
+          <LargeBackContent />
+          <LargeBackBackgroundImageURI IsRelative="true" IsResource="false">
+          </LargeBackBackgroundImageURI>
+          <DeviceLockImageURI IsRelative="true" IsResource="false">
           </DeviceLockImageURI>
-          <HasLarge>
-          </HasLarge>
+          <HasLarge>True</HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>
