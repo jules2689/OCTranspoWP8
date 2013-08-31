@@ -95,6 +95,10 @@
     </Compile>
     <Compile Include="GeoLocator.cs" />
     <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="Models\OCRouteNumber.cs" />
+    <Compile Include="Models\OCCSVParserHelper.cs" />
+    <Compile Include="Models\OCStopTime.cs" />
+    <Compile Include="Models\OCZipFile.cs" />
     <Compile Include="Navigation.cs" />
     <Compile Include="Views\StopRoutes.xaml.cs">
       <DependentUpon>StopRoutes.xaml</DependentUpon>
@@ -148,6 +152,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\OCTranspo.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="OCTranspo_2013_07_14_08_21_26.sap" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
@@ -208,11 +215,16 @@
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\packages\WPtoolkit.4.2013.06.11\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
+    <Reference Include="SharpZipLib.WindowsPhone7">
+      <HintPath>..\packages\SharpZipLib-WP7.0.86.0.518\lib\sl4-windowsphone71\SharpZipLib.WindowsPhone7.dll</HintPath>
+    </Reference>
     <Reference Include="zlib.net">
       <HintPath>..\packages\zlib.net.1.0.4.0\lib\zlib.net.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="OC_Schedule\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

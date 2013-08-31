@@ -23,8 +23,8 @@ namespace OCTranspo.Views
 
             string msg = "";
 
-            if (NavigationContext.QueryString.TryGetValue("stopID", out msg))
-                stopID.Text = msg;
+            if (NavigationContext.QueryString.TryGetValue("stopCode", out msg))
+                stopCode.Text = msg;
 
             if (NavigationContext.QueryString.TryGetValue("stopName", out msg))
                 stopName.Text = msg;

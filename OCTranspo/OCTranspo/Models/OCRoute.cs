@@ -4,10 +4,11 @@ public class OCRoute
 {
     public OCRoute(){}
 
-    public static OCRoute newOCRoute(int routeNo, int directionId, String direction, String routeHeading)
+    public static OCRoute newOCRoute(int routeNo, String routeID, int directionId, String direction, String routeHeading)
 	{
         OCRoute route = new OCRoute();
         route.RouteNumber = routeNo;
+        route.RouteID = routeID;
         route.DirectionID = directionId;
         route.Direction = direction;
         route.RouteHeading = routeHeading;
@@ -15,6 +16,7 @@ public class OCRoute
 	}
 
     public int RouteNumber { get; set; }
+    public String RouteID { get; set; }
     public int DirectionID { get; set; }
     public String Direction { get; set; }
     public String RouteHeading { get; set; }

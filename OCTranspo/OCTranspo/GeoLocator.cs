@@ -85,13 +85,13 @@ namespace OCTranspo
             // Create a map marker
             Pushpin pin = new Pushpin();
             pin.Background = new SolidColorBrush(color);
-            pin.GeoCoordinate = new GeoCoordinate(stop.StopLat, stop.StopLong);
-            pin.Name = stop.StopID + " - " + stop.StopDesc;
+            pin.GeoCoordinate = new GeoCoordinate(stop.stop_lat, stop.stop_lon);
+            pin.Name = stop.stop_code + " - " + stop.stop_name;
             if (action)
             {
                 pin.Tap += mapPinTapped;
             }
-            layMarker(pin, stop.StopLat, stop.StopLong, mapLayer);
+            layMarker(pin, stop.stop_lat, stop.stop_lon, mapLayer);
             
         }
 

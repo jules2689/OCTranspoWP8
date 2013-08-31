@@ -55,7 +55,7 @@
         <Grid Grid.Row="0" Margin="12,17,0,28">
             <Rectangle  VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="80" Fill="#FFD21E00" Margin="-17,-18,0,0" />
             <TextBlock Name="stopName" TextTrimming="WordEllipsis" Text="page name" FontSize="35" Margin="50,10,19,28" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" VerticalAlignment="Center" FontFamily="Segoe WP Light"/>
-            <TextBlock x:Name="stopID" Text="18" FontSize="40" Margin="0,5,431,33" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="47"/>
+            <TextBlock x:Name="stopCode" Text="18" FontSize="40" Margin="0,5,431,33" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="47"/>
         </Grid>
 
         <!--ContentPanel - place additional content here-->

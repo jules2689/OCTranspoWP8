@@ -17,8 +17,8 @@
                     <ColumnDefinition Width="100" />
                     <ColumnDefinition Width="370"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock FontWeight="Bold" VerticalAlignment="Center" Grid.Column="0"  FontSize="40" Text="{Binding StopID}" Foreground="Black" />
-                <TextBlock VerticalAlignment="Center" Grid.Column="1" FontSize="30" TextTrimming="WordEllipsis" Text="{Binding StopDesc}" Foreground="Black" />
+                <TextBlock FontWeight="Bold" VerticalAlignment="Center" Grid.Column="0"  FontSize="40" Text="{Binding stop_code}" Foreground="Black" />
+                <TextBlock VerticalAlignment="Center" Grid.Column="1" FontSize="30" TextTrimming="WordEllipsis" Text="{Binding stop_name}" Foreground="Black" />
             </Grid>
         </DataTemplate>
 

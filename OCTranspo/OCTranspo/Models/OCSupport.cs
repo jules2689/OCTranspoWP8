@@ -16,6 +16,8 @@ public class OCSupport
     private static String urlNextTrip = "GetNextTripsForStop";
     private static String argsBase = "appID=" + appID + "&apiKey=" + apiKey;
 
+   
+
     // API Calls - Posts Methods (Public Access Methods)
 
     public static async void getRouteSummaryForStop(int stop, UploadStringCompletedEventHandler handler)
@@ -124,15 +126,16 @@ public class OCSupport
     {
         List<OCRoute> rts = new List<OCRoute>();
         int routeNo, dirId;
-        String dir, heading;
+        String dir, heading, routeID;
 
         foreach (XElement route in routes.Elements())
         {
             routeNo = int.Parse(route.Element("RouteNo").Value);
+            routeID = "";
             dirId = int.Parse(route.Element("DirectionID").Value);
             dir = route.Element("Direction").Value;
             heading = route.Element("RouteHeading").Value;
-            OCRoute routeObject = OCRoute.newOCRoute(routeNo, dirId, dir, heading);
+            OCRoute routeObject = OCRoute.newOCRoute(routeNo, routeID, dirId, dir, heading);
             routeObject.BusName = heading.ToUpper();
             rts.Add(routeObject);
         }

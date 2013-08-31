@@ -292,7 +292,7 @@ namespace OCTranspo
             else if (selectedItem is OCStop)
             {
                 OCStop stop = (OCStop)selectedItem;
-                Navigation.NavigateToStopRoute(stop.StopID.ToString(), stop.StopDesc);
+                Navigation.NavigateToStopRoute(stop.stop_code.ToString(), stop.stop_name);
             }
             ((LongListSelector)sender).SelectedItem = null;
         }
