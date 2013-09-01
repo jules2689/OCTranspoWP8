@@ -41,9 +41,17 @@
                 </Grid>
             </Grid>
         </DataTemplate>
-
     </phone:PhoneApplicationPage.Resources>
-    
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FFD9D9D9" ForegroundColor="#FFD21E00">
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/pin.png" Text="pin to start" Click="ApplicationBarMenuItem_Click_1"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
@@ -54,8 +62,8 @@
         <!--TitlePanel contains the name of the application and page title-->
         <Grid Grid.Row="0" Margin="12,17,0,28">
             <Rectangle  VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="80" Fill="#FFD21E00" Margin="-17,-18,0,0" />
-            <TextBlock Name="stopName" TextTrimming="WordEllipsis" Text="page name" FontSize="35" Margin="50,10,19,28" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" VerticalAlignment="Center" FontFamily="Segoe WP Light"/>
-            <TextBlock x:Name="stopCode" Text="18" FontSize="40" Margin="0,5,431,33" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="47"/>
+            <TextBlock Name="routeName" TextTrimming="WordEllipsis" Text="page name" FontSize="35" Margin="50,10,19,28" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" VerticalAlignment="Center" FontFamily="Segoe WP Light"/>
+            <TextBlock x:Name="routeNumber" Text="18" FontSize="40" Margin="0,5,431,33" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="47"/>
         </Grid>
 
         <!--ContentPanel - place additional content here-->

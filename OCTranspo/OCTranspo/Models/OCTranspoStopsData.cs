@@ -17,7 +17,53 @@ namespace OCTranspo.Models
         public static void initDB()
         {
            OCZipFile.UnZipOCTranspo();
+           createFavouritesTable();
         }
+
+        private static async void createFavouritesTable()
+        {
+            String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
+            await conn.CreateTableAsync<OCDirection>();
+        }
+
+        // Favourites
+
+        public static async void addFavouriteStop(OCDirection direction)
+        {
+            int result = 0;
+            String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
+             await conn.InsertAsync(direction).ContinueWith((t) =>
+            {
+                result = t.Result;
+            });
+             String s = result.ToString();
+             getFavourites();
+
+        }
+
+        public static async Task<ObservableCollection<OCDirection>> getFavourites()
+        {
+            //TODO Math.
+            String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
+            var count = await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='OCDirection'");
+            if (count > 0)
+            {
+                String Query = "SELECT * from OCDirection;";
+                List<OCDirection> stops = await conn.QueryAsync<OCDirection>(Query);
+                ObservableCollection<OCDirection> directionsCollection = new ObservableCollection<OCDirection>(stops);
+                return directionsCollection;
+            }
+            else
+            {
+                createFavouritesTable();
+                return await getFavourites();
+            }
+        }
+
+        // Stops
 
         public static async Task<ObservableCollection<OCStop>> getCloseStops(double latitude, double longitude, double zoomLevel)
         {

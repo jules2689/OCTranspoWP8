@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="GeoLocator.cs" />
     <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\OCRouteNumber.cs" />
     <Compile Include="Models\OCCSVParserHelper.cs" />
     <Compile Include="Models\OCStopTime.cs" />
@@ -125,8 +126,8 @@
     </Compile>
     <Compile Include="SQLite\SQLite.cs" />
     <Compile Include="SQLite\SQLiteAsync.cs" />
-    <Compile Include="Views\Stops.xaml.cs">
-      <DependentUpon>Stops.xaml</DependentUpon>
+    <Compile Include="Views\Route.xaml.cs">
+      <DependentUpon>Route.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -146,7 +147,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Stops.xaml">
+    <Page Include="Views\Route.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

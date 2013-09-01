@@ -18,9 +18,9 @@ namespace OCTranspo
             NavigateTo(URI);
         }
 
-        public static void NavigateToStop(String ID, String name)
+        public static void NavigateToRoute(String ID, String name, int stopID, String stopName, String direction)
         {
-            String URI = "/Views/stops.xaml?stopID=" + ID.Trim() + "&stopName=" + name.Trim();
+            String URI = "/Views/Route.xaml?routeNumber=" + ID.Trim() + "&routeName=" + name.Trim() + "&stopID=" + stopID + "&stopName=" + stopName + "&direction=" + direction;
             NavigateTo(URI);
         }
 

@@ -15,20 +15,26 @@ namespace OCTranspo.Models
     {
         public static async void UnZipOCTranspo()
         {
-            ExtractZipFile("Assets/OCTranspo.zip", "", ApplicationData.Current.LocalFolder.Path);
-            bool isDatabaseExisting = false;
-            try
+            String finalPath =  ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
+            if (File.Exists(finalPath) == false)
             {
-                StorageFile storageFile = await ApplicationData.Current.LocalFolder.GetFileAsync("OCTranspo.sqlite");
-                isDatabaseExisting = storageFile != null;
-            } catch {
-                isDatabaseExisting = false;
-            }
+                ExtractZipFile("Assets/OCTranspo.zip", "", ApplicationData.Current.LocalFolder.Path);
+                bool isDatabaseExisting = false;
+                try
+                {
+                    StorageFile storageFile = await ApplicationData.Current.LocalFolder.GetFileAsync("OCTranspo.sqlite");
+                    isDatabaseExisting = storageFile != null;
+                }
+                catch
+                {
+                    isDatabaseExisting = false;
+                }
 
-            if (isDatabaseExisting == false)
-            {
-                StorageFile dbFile = await StorageFile.GetFileFromPathAsync( ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite");
-                await dbFile.CopyAsync(ApplicationData.Current.LocalFolder);
+                if (isDatabaseExisting == false)
+                {
+                    StorageFile dbFile = await StorageFile.GetFileFromPathAsync(finalPath);
+                    await dbFile.CopyAsync(ApplicationData.Current.LocalFolder);
+                }
             }
         }
 

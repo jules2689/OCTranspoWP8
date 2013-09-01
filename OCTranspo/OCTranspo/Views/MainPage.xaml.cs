@@ -37,15 +37,16 @@ namespace OCTranspo
             setupMap();
         }
 
-        private void setupLists()
+        private async void setupLists()
         {
             //Set List Data Sources
             getNearbyStops();
             routes = new List<OCStop>();
-            favourites = new ObservableCollection<OCDirection>();
+            favourites = await OCTranspoStopsData.getFavourites();
             this.routesList.ItemsSource = routes;
             this.favouritesList.ItemsSource = favourites;
-            OCSupport.getNextTripForStop(3009, 95, new UploadStringCompletedEventHandler(processGetNextTripForStop));
+            setFavouriteErrorMessage(false, favourites.Count > 0);
+           // OCSupport.getNextTripForStop(3009, 95, new UploadStringCompletedEventHandler(processGetNextTripForStop));
            // OCSupport.getRouteSummaryForStop(3009, new UploadStringCompletedEventHandler(processGetRouteSummaryForStop)); 
         }
 
@@ -176,8 +177,13 @@ namespace OCTranspo
             else if (!error && !foundItems)
             {
                 favouritesSorry.Text = "You have no favourites yet, try adding a route you use often for quick access!";
-                favouritesSorry.Visibility = Visibility.Collapsed;
+                favouritesSorry.Visibility = Visibility.Visible;
                 faveFrowny.Visibility = Visibility.Visible;
+            }
+            else if (!error && foundItems)
+            {
+                favouritesSorry.Visibility = Visibility.Collapsed;
+                faveFrowny.Visibility = Visibility.Collapsed;
             }
             else
             {

@@ -64,7 +64,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1">
-            <phone:LongListSelector Name="routesList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemTemplate="{StaticResource ocStopRouteListItem}" Margin="10,-28,0,1" />
+            <phone:LongListSelector Name="routesList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemTemplate="{StaticResource ocStopRouteListItem}" Margin="10,-28,0,1" SelectionChanged="routesList_SelectionChanged" />
         </Grid>
     </Grid>
 

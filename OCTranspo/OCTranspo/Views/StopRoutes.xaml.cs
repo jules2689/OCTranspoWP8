@@ -28,6 +28,10 @@ namespace OCTranspo.Views
 
             if (NavigationContext.QueryString.TryGetValue("stopRoute", out msg))
             {
+                if (msg.Length == 0)
+                {
+                    msg = "0";
+                }
                 stopID.Text = msg;
                 OCSupport.getRouteSummaryForStop(int.Parse(msg),new UploadStringCompletedEventHandler(processRouteSummaryForStop));
             }
@@ -53,6 +57,18 @@ namespace OCTranspo.Views
         private void routesListInit()
         {
             routesList.ItemsSource = routes;
+        }
+
+        private void routesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = ((LongListSelector)sender).SelectedItem;
+            if (selectedItem is OCRoute)
+            {
+                OCRoute route = (OCRoute)selectedItem;
+                Navigation.NavigateToRoute(route.RouteNumber.ToString(), route.RouteHeading, int.Parse(stopID.Text), stopName.Text, route.RouteHeading);
+            }
+
+            ((LongListSelector)sender).SelectedItem = null;
         }
     }
 }
