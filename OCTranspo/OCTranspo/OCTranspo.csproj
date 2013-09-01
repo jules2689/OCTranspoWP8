@@ -41,7 +41,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>Bin\Release</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;USE_WP8_NATIVE_SQLITE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -95,7 +95,7 @@
     </Compile>
     <Compile Include="GeoLocator.cs" />
     <Compile Include="LocalizedStrings.cs" />
-    <Compile Include="Models\Class1.cs" />
+    <Compile Include="Models\OCSchedule.cs" />
     <Compile Include="Models\OCRouteNumber.cs" />
     <Compile Include="Models\OCCSVParserHelper.cs" />
     <Compile Include="Models\OCStopTime.cs" />
@@ -129,6 +129,7 @@
     <Compile Include="Views\Route.xaml.cs">
       <DependentUpon>Route.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TiltEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -153,9 +154,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\OCTranspo.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Assets\OCTranspo.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="OCTranspo_2013_07_14_08_21_26.sap" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
@@ -225,6 +226,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OC_Schedule\" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="SQLite.WP80, Version=3.8.0">
+      <Name>SQLite for Windows Phone</Name>
+    </SDKReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

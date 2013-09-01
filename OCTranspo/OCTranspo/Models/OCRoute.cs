@@ -21,4 +21,7 @@ public class OCRoute
     public String Direction { get; set; }
     public String RouteHeading { get; set; }
     public String BusName { get; set; }
+
+    //Variable for View
+    public String fiveArrivalTimes { get; set; }
 }

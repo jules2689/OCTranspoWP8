@@ -18,6 +18,8 @@ public class OCStopTime
 	}
 
     public String tripId { get; set; }
+
+    [SQLite.Indexed]
     public String stopId { get; set; }
     public int stopSequence { get; set; }
     public int pickupType { get; set; }

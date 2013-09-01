@@ -1,7 +1,7 @@
 ﻿<phone:PhoneApplicationPage xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone" xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps" xmlns:Location="clr-namespace:System.Device.Location;assembly=System.Device"
     xmlns:map="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
        xmlns:maptk="clr-namespace:Microsoft.Phone.Maps.Toolkit;assembly=Microsoft.Phone.Controls.Toolkit"
-       x:Class="OCTranspo.MainPage"
+       x:Class="OCTranspo.MainPage"                        
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True" shell:SystemTray.Opacity="0" mc:Ignorable="d">
     <shell:SystemTray.ProgressIndicator>
@@ -28,7 +28,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="270"/>
-                    <ColumnDefinition Width="125"/> <!--  WITH ARROW <ColumnDefinition Width="100"/>  -->
+                    <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
@@ -49,7 +49,7 @@
                     <TextBlock FontSize="18" Padding="6,2,6,2"  HorizontalAlignment="Center" TextTrimming="WordEllipsis" Text="{Binding FromStopNumber}" Foreground="White" FontFamily="Segoe UI Light" FontStyle="Italic" />
                 </Grid>
                 
-               <!-- <Image Grid.Column="3" Source="/Assets/arrow.png" HorizontalAlignment="Left" Width="20" Height="20" /> -->
+               <Image Grid.Column="3" Source="/Assets/arrow.png" HorizontalAlignment="Left" Width="20" Height="20" />
                 <Rectangle Grid.ColumnSpan="4" Grid.Row="1" Height="5" Fill="DarkGray"/>
                 
                 <Grid Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="1" Margin="15,0,0,0">

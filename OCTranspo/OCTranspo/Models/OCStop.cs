@@ -8,7 +8,9 @@ namespace OCTranspo.Models
 {
     public class OCStop
     {
+        [SQLite.Indexed]
         public int stop_id { get; set; }
+        [SQLite.Indexed]
         public String stop_code { get; set; }
         public String stop_name { get; set; }
         public Double stop_lat { get; set; }

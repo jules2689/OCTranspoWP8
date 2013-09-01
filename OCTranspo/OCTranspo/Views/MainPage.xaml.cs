@@ -28,6 +28,7 @@ namespace OCTranspo
         // Constructor
         public MainPage()
         {
+            TiltEffect.SetIsTiltEnabled(this, true);
             searching = false;
             ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["DefaultAppBar"];
             OCTranspoStopsData.initDB();
@@ -139,7 +140,7 @@ namespace OCTranspo
                  setNearbyErrorMessage(false, false);
              }
         }
-        //Sorry, there was an issue retrieving your favourites. Check your data connection and try again.
+
         private void setNearbyErrorMessage(bool GPSEnabled, bool foundItems)
         {
             if (!GPSEnabled)

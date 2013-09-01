@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using OCTranspo.Models;
 
 namespace OCTranspo.Views
 {
@@ -42,13 +43,29 @@ namespace OCTranspo.Views
             routesListInit();
         }
 
-        public void processRouteSummaryForStop(Object sender, UploadStringCompletedEventArgs e)
+        public async void processRouteSummaryForStop(Object sender, UploadStringCompletedEventArgs e)
         {
             string reply = (string)e.Result;
             OCRouteSummaryForStop stop = OCSupport.makeRouteSummary(reply);
             if (stop != null)
             {
                 List<OCRoute> routesListObject = stop.Routes;
+                List<OCSchedule> schedule = await OCTranspoStopsData.getScheduleForDayAndStop("monday", stop.StopNumber.ToString());
+                foreach (OCRoute route in routesListObject)
+                {
+                    String times = "";
+                    schedule.FindAll(delegate(OCSchedule s)
+                    {
+                        if (s.route_short_name == route.RouteNumber)
+                        {
+                            times = times + ", " + s.arrival_time;
+                            return true;
+                        }
+                        else
+                            return false;
+                    });
+                    route.fiveArrivalTimes = times;
+                }
                 routes = new ObservableCollection<OCRoute>(routesListObject);
                 routesList.ItemsSource = routes;
             }

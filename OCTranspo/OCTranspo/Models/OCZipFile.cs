@@ -16,7 +16,8 @@ namespace OCTranspo.Models
         public static async void UnZipOCTranspo()
         {
             String finalPath =  ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
-            if (File.Exists(finalPath) == false)
+            DateTime creationTime = File.GetLastWriteTime("Assets/OCTranspo.zip");
+            if (File.Exists(finalPath) == false || checkDateTime(creationTime))
             {
                 ExtractZipFile("Assets/OCTranspo.zip", "", ApplicationData.Current.LocalFolder.Path);
                 bool isDatabaseExisting = false;
@@ -36,6 +37,32 @@ namespace OCTranspo.Models
                     await dbFile.CopyAsync(ApplicationData.Current.LocalFolder);
                 }
             }
+        }
+
+        private static Boolean checkDateTime(DateTime time)
+        {
+            Boolean result = false;
+            String path = ApplicationData.Current.LocalFolder.Path + "/time.txt";
+            if (File.Exists(path)) {
+
+                TextReader reader = new StreamReader(path);
+                String date = reader.ReadLine();
+                reader.Close();
+                DateTime timeFile = DateTime.Parse(date);
+                int compared = timeFile.CompareTo(time);
+                if (compared > 0)
+                {
+                    TextWriter tw = new StreamWriter(path);
+                    tw.WriteLine(time.ToLongDateString() + " " + time.ToLongTimeString());
+                    tw.Close();
+                    result = true;
+                }
+            } else {
+                TextWriter tw = new StreamWriter(path);
+                tw.WriteLine(time.ToLongDateString() + " " + time.ToLongTimeString());
+                tw.Close();
+            }
+            return result;
         }
 
         private static void ExtractZipFile(string archiveFilenameIn, string password, string outFolder)

@@ -16,6 +16,7 @@ namespace OCTranspo.Views
         private int stopID;
         private String fromStopName;
         private String direction;
+        private bool favourite;
 
         public Stops()
         {
@@ -43,6 +44,9 @@ namespace OCTranspo.Views
             if (NavigationContext.QueryString.TryGetValue("direction", out msg))
                 direction = msg;
 
+            if (NavigationContext.QueryString.TryGetValue("favourite", out msg))
+                favourite = msg.Equals("true") ? true : false;
+
 
             stopsListInit();
         }
@@ -56,13 +60,24 @@ namespace OCTranspo.Views
             StopsList.ItemsSource = s;
         }
 
-        private void ApplicationBarMenuItem_Click_1(object sender, EventArgs e)
+        private async void ApplicationBarMenuItem_Click_1(object sender, EventArgs e)
         {
            OCDirection direction = OCDirection.newOCDirection(int.Parse(routeNumber.Text), routeName.Text, "", "");
+           
            direction.FromStopNumber = stopID;
            direction.FromStopName = fromStopName;
            direction.DirectionalName = "TO " + this.direction.ToUpper();
-           OCTranspoStopsData.addFavouriteStop(direction);
+           int result = await OCTranspoStopsData.addFavouriteStop(direction);
+           if (result > 0)
+           {
+               MessageBox.Show("Your favourite stop was succesfully added.");
+               ApplicationBarIconButton button = (ApplicationBarIconButton)sender;
+               button.IsEnabled = false;
+           }
+           else
+           {
+               MessageBox.Show("There was an error adding your favourite stop, please try again.");
+           }
         }
 
         private void ApplicationBarMenuItem_Click_2(object sender, EventArgs e)

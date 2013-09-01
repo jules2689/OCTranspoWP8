@@ -13,6 +13,7 @@ public class OCRouteNumber
         return route;
 	}
 
+    [SQLite.Indexed]
     public int RouteNumber { get; set; }
     public int RouteType { get; set; }
     public String RouteID { get; set; }
