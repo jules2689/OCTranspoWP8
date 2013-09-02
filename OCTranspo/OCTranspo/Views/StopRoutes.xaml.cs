@@ -15,10 +15,12 @@ namespace OCTranspo.Views
     public partial class StopRoutes : PhoneApplicationPage
     {
         ObservableCollection<OCApiRoute> routes;
+        private bool addFavePressed;
 
         public StopRoutes()
         {
             InitializeComponent();
+            addFavePressed = false;
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -86,6 +88,25 @@ namespace OCTranspo.Views
             }
 
             ((LongListSelector)sender).SelectedItem = null;
+        }
+
+        private async void addFavourite_Click(object sender, RoutedEventArgs e)
+        {
+            var menItem = (MenuItem)sender;
+            OCApiRoute apiRoute = (OCApiRoute)menItem.DataContext;
+            OCDirection direction = OCDirection.newOCDirection(apiRoute.RouteNumber, apiRoute.RouteHeading, apiRoute.Direction, "", 0);
+            direction.FromStopName = stopName.Text;
+            direction.FromStopNumber = int.Parse(stopID.Text);
+            direction.DirectionalName = "TO " + apiRoute.RouteHeading.ToUpper();
+            int result = await OCTranspoStopsData.addFavouriteStop(direction);
+            if (result > 0)
+            {
+                MessageBox.Show("Your favourite stop was succesfully added.");
+            }
+            else
+            {
+                MessageBox.Show("There was an error adding your favourite stop, please try again.");
+            }
         }
     }
 }

@@ -17,10 +17,12 @@ namespace OCTranspo.Views
         private String fromStopName;
         private String direction;
         private bool favourite;
+        private bool addFavePressed;
 
         public Stops()
         {
             InitializeComponent();
+            addFavePressed = false;
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -62,22 +64,28 @@ namespace OCTranspo.Views
 
         private async void ApplicationBarMenuItem_Click_1(object sender, EventArgs e)
         {
-           OCDirection direction = OCDirection.newOCDirection(int.Parse(routeNumber.Text), routeName.Text, "", "");
-           
-           direction.FromStopNumber = stopID;
-           direction.FromStopName = fromStopName;
-           direction.DirectionalName = "TO " + this.direction.ToUpper();
-           int result = await OCTranspoStopsData.addFavouriteStop(direction);
-           if (result > 0)
-           {
-               MessageBox.Show("Your favourite stop was succesfully added.");
-               ApplicationBarIconButton button = (ApplicationBarIconButton)sender;
-               button.IsEnabled = false;
-           }
-           else
-           {
-               MessageBox.Show("There was an error adding your favourite stop, please try again.");
-           }
+            if (addFavePressed == false)
+            {
+                addFavePressed = true;
+                OCDirection direction = OCDirection.newOCDirection(int.Parse(routeNumber.Text), routeName.Text, "", "", 0);
+
+                direction.FromStopNumber = stopID;
+                direction.FromStopName = fromStopName;
+                direction.DirectionalName = "TO " + this.direction.ToUpper();
+                int result = await OCTranspoStopsData.addFavouriteStop(direction);
+                if (result > 0)
+                {
+                    MessageBox.Show("Your favourite stop was succesfully added.");
+                    ApplicationBarIconButton button = (ApplicationBarIconButton)sender;
+                    button.IsEnabled = false;
+                    favourite = true;
+                }
+                else
+                {
+                    MessageBox.Show("There was an error adding your favourite stop, please try again.");
+                    addFavePressed = favourite = false;
+                }
+            }
         }
 
         private void ApplicationBarMenuItem_Click_2(object sender, EventArgs e)

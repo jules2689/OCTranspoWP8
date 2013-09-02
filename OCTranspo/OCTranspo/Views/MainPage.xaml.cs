@@ -24,12 +24,16 @@ namespace OCTranspo
         Boolean searching;
         DispatcherTimer searchBoxTimer;
         DispatcherTimer mapTimer;
+        Boolean refreshingFavs;
+        Boolean refreshingNearby;
 
         // Constructor
         public MainPage()
         {
             TiltEffect.SetIsTiltEnabled(this, true);
             searching = false;
+            refreshingFavs = false;
+            refreshingNearby = false;
             ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["DefaultAppBar"];
             OCTranspoStopsData.initDB();
             InitializeComponent();
@@ -38,23 +42,41 @@ namespace OCTranspo
             setupMap();
         }
 
-        private async void setupLists()
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            refreshFavourites();
+            getNearbyStops();
+        }
+
+        private void setupLists()
         {
             //Set List Data Sources
+            refreshFavourites();
             getNearbyStops();
             routes = new List<OCStop>();
-            favourites = await OCTranspoStopsData.getFavourites();
-            this.routesList.ItemsSource = routes;
-            foreach (OCDirection stop in favourites)
-            {
-                OCDirection stop2 = await stop.fetchTimes(stop.FromStopNumber.ToString());
-                stop.fourArrivalTimes = stop2.fourArrivalTimes;
-                stop.nextTimes = stop2.nextTimes;
-            }
-            this.favouritesList.ItemsSource = favourites;
-            setFavouriteErrorMessage(false, favourites.Count > 0);
+            
            // OCSupport.getNextTripForStop(3009, 95, new UploadStringCompletedEventHandler(processGetNextTripForStop));
            // OCSupport.getRouteSummaryForStop(3009, new UploadStringCompletedEventHandler(processGetRouteSummaryForStop)); 
+        }
+
+        private async void refreshFavourites()
+        {
+            if (refreshingFavs == false)
+            {
+                refreshingFavs = true;
+                favourites = await OCTranspoStopsData.getFavourites();
+                this.routesList.ItemsSource = routes;
+                foreach (OCDirection stop in favourites)
+                {
+                    OCDirection stop2 = await stop.fetchTimes(stop.FromStopNumber.ToString());
+                    stop.fourArrivalTimes = stop2.fourArrivalTimes;
+                    stop.nextTimes = stop2.nextTimes;
+                }
+                this.favouritesList.ItemsSource = favourites;
+                setFavouriteErrorMessage(false, favourites.Count > 0);
+                refreshingFavs = false;
+            }
         }
 
         public void processGetRouteSummaryForStop(Object sender, UploadStringCompletedEventArgs e)
@@ -124,31 +146,36 @@ namespace OCTranspo
 
         private async void getNearbyStops()
          {
-             try
+             if (refreshingNearby == false)
              {
-                 Geocoordinate myCoordinate = await GeoLocator.getMyLocation();
-                 if (myCoordinate != null)
+                 refreshingNearby = true;
+                 try
                  {
-                     nearbyStops = await OCTranspoStopsData.getCloseStops(myCoordinate.Latitude, myCoordinate.Longitude, currentLocation.ZoomLevel);
-                     this.nearbyList.ItemsSource = nearbyStops;
-
-                     setNearbyErrorMessage(true, nearbyStops.Count > 0);
+                     Geocoordinate myCoordinate = await GeoLocator.getMyLocation();
+                     if (myCoordinate != null)
+                     {
+                         nearbyStops = await OCTranspoStopsData.getCloseStops(myCoordinate.Latitude, myCoordinate.Longitude, currentLocation.ZoomLevel);
+                         this.nearbyList.ItemsSource = nearbyStops;
+                         setNearbyErrorMessage(true, nearbyStops.Count > 0);
+                     }
+                     else
+                     {
+                         nearbySorry.Visibility = nearbyStops.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+                         nearbyFrown.Visibility = nearbyStops.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+                         setNearbyErrorMessage(true, false);
+                     }
                  }
-                 else
+                 catch
                  {
-                     nearbySorry.Visibility = nearbyStops.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
-                     nearbyFrown.Visibility = nearbyStops.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
-                     setNearbyErrorMessage(true, false);
+                     setNearbyErrorMessage(false, false);
                  }
-             }
-             catch
-             {
-                 setNearbyErrorMessage(false, false);
+                 refreshingNearby = false;
              }
         }
 
         private void setNearbyErrorMessage(bool GPSEnabled, bool foundItems)
         {
+            refreshingNearby = false;
             if (!GPSEnabled)
             {
                 nearbySorry.Text = "Sorry, your GPS is not enabled!";
@@ -363,6 +390,21 @@ namespace OCTranspo
         private void ApplicationBarMenuItem_Click_2(object sender, EventArgs e)
         {
             Navigation.NavigateToSettings();
+        }
+
+        private async void deleteFavourite_Click(object sender, RoutedEventArgs e)
+        {
+            var menItem = (MenuItem)sender;
+            OCDirection dir = (OCDirection)menItem.DataContext;
+            int result = await OCTranspoStopsData.deleteFavourite(dir);
+            if (result > 0)
+            {
+                favourites.Remove(dir);
+            }
+            else
+            {
+                MessageBox.Show("There was an issue deleting your favourite.");
+            }
         }
     }
 }

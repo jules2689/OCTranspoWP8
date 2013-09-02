@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -18,6 +19,11 @@
         <!-- Favourites and Stop List Item-->
         <DataTemplate x:Key="ocStopRouteListItem">
             <Grid x:Name="LayoutRoot" HorizontalAlignment="Stretch" ShowGridLines="False" >
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu IsZoomEnabled="False" IsFadeEnabled="False">
+                        <toolkit:MenuItem Header="Add Favourite" Click="addFavourite_Click"/>
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80" />
                     <ColumnDefinition Width="400"/>
