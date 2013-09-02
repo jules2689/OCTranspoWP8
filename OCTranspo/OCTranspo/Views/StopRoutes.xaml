@@ -40,8 +40,8 @@
                         <ColumnDefinition Width="5"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center" Grid.Column="0"  FontSize="20" TextTrimming="WordEllipsis" Text="10:45 11:46 12:45" Foreground="Green" />
-                    <TextBlock VerticalAlignment="Center" Grid.Column="2"  FontSize="20" TextTrimming="WordEllipsis" Text="1:50 2:10 2:30 2:50 3:50" Foreground="Gray" />
+                    <TextBlock VerticalAlignment="Center" Grid.Column="0"  FontSize="20" TextTrimming="WordEllipsis" Text="{Binding nextTimes}" Foreground="Green" />
+                    <TextBlock VerticalAlignment="Center" Grid.Column="2"  FontSize="20" TextTrimming="WordEllipsis" Text="{Binding fourArrivalTimes}" Foreground="Gray" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -55,6 +55,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0" Margin="0,0,0,5">
+            <TextBlock x:Name="loadingText" HorizontalAlignment="Left" Margin="0,86,0,0" TextWrapping="Wrap" Text="Loading..." VerticalAlignment="Top" RenderTransformOrigin="-0.056,-4.259" Foreground="Black" Width="475" TextAlignment="Center" Grid.RowSpan="2"/>
+            <ProgressBar x:Name="loadingProgress" Height="8" Margin="0,78,0,0" VerticalAlignment="Top" Width="470" IsIndeterminate="True"/>
+        </Grid>
+        
         <!--TitlePanel contains the name of the application and page title-->
         <Grid Grid.Row="0" Margin="12,17,0,5">
             <Rectangle  VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="80" Fill="#FFD21E00" Margin="-17,-18,0,0" />
@@ -64,8 +69,12 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1">
-            <phone:LongListSelector Name="routesList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemTemplate="{StaticResource ocStopRouteListItem}" Margin="10,-28,0,1" SelectionChanged="routesList_SelectionChanged" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="181*"/>
+                <ColumnDefinition Width="299*"/>
+            </Grid.ColumnDefinitions>
+            <phone:LongListSelector Name="routesList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemTemplate="{StaticResource ocStopRouteListItem}" Margin="10,-28,0,1" SelectionChanged="routesList_SelectionChanged" Grid.ColumnSpan="2" />
+         </Grid>
         </Grid>
-    </Grid>
 
 </phone:PhoneApplicationPage>

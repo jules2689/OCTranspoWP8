@@ -45,6 +45,12 @@ namespace OCTranspo
             routes = new List<OCStop>();
             favourites = await OCTranspoStopsData.getFavourites();
             this.routesList.ItemsSource = routes;
+            foreach (OCDirection stop in favourites)
+            {
+                OCDirection stop2 = await stop.fetchTimes(stop.FromStopNumber.ToString());
+                stop.fourArrivalTimes = stop2.fourArrivalTimes;
+                stop.nextTimes = stop2.nextTimes;
+            }
             this.favouritesList.ItemsSource = favourites;
             setFavouriteErrorMessage(false, favourites.Count > 0);
            // OCSupport.getNextTripForStop(3009, 95, new UploadStringCompletedEventHandler(processGetNextTripForStop));
@@ -352,6 +358,11 @@ namespace OCTranspo
                     ApplicationBarIconButton pinButton4 = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
                     break;
             }
+        }
+
+        private void ApplicationBarMenuItem_Click_2(object sender, EventArgs e)
+        {
+            Navigation.NavigateToSettings();
         }
     }
 }

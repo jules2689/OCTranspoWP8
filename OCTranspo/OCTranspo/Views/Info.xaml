@@ -61,20 +61,24 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:LongListSelector Name="StopsList" HorizontalAlignment="Left" ItemTemplate="{StaticResource stopsListItem}" Height="656" VerticalAlignment="Top" Width="446" Margin="0,-28,0,0" />
             <Image HorizontalAlignment="Center" Height="229" VerticalAlignment="Top" Width="222" Margin="117,35,117,0" Source="/Assets/uMJ24Z4zd-byXlrQik4tCnVePycic0UjGd6tWlfiYg0.png"/>
-            <TextBlock HorizontalAlignment="Left" Margin="49,320,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="248" Width="360" Foreground="Black" TextAlignment="Center">
-            	<Run Text="All Rights Reserved. Copyright © 2013."/>
-            	<LineBreak/>
-            	<Run Text="J. Nadeau | A.Pawliszko | C.Babineau"/>
-            	<LineBreak/>
-            	<Run/>
-            	<LineBreak/>
-            	<Run Text="OCTranspo, Logo, Colours and all other OCTranspo Information and Data is property and trademarks of OCTranspo."/>
-            	<LineBreak/>
-            	<Run/>
-            	<LineBreak/>
-            	<Run Text="For OCTranspo Terms of use, please visit the OCTranspo Website, or click the button below"/>
-            </TextBlock>
-            <Button Content="Terms of Use" VerticalAlignment="Top" Margin="132,568,132,0" Foreground="White" Height="78" Background="#FFD21E00" Click="HyperlinkButton_Click_1"/>
+            <ScrollViewer Height="340" HorizontalAlignment="Left" Margin="49,320,0,0" Name="scrollViewer1" VerticalAlignment="Top" Width="360">
+                <Grid>
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Black" TextAlignment="Center">
+            	    <Run Text="All Rights Reserved. Copyright © 2013."/>
+            	    <LineBreak/>
+            	    <Run Text="J. Nadeau | A.Pawliszko | C.Babineau"/>
+            	    <LineBreak/>
+            	    <Run/>
+            	    <LineBreak/>
+            	    <Run Text="OCTranspo, Logo, Colours and all other OCTranspo Information and Data is property and trademarks of OCTranspo."/>
+            	    <LineBreak/>
+            	    <Run/>
+            	    <LineBreak/>
+            	    <Run Text="For OCTranspo Terms of use, please visit the OCTranspo Website, or click the button below"/>
+                </TextBlock>
+                <Button Content="Terms of Use" VerticalAlignment="Top" Margin="60,270,60,0" Foreground="White" Height="78" Background="#FFD21E00" Click="HyperlinkButton_Click_1"/>
+                </Grid>
+            </ScrollViewer>
             <TextBlock HorizontalAlignment="Left" Margin="117,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" Height="37">
             	<Run Foreground="Black" FontSize="25" Text="OCTranspo for WP8"/>
             	<LineBreak Foreground="Black"/>

@@ -58,8 +58,8 @@
                         <ColumnDefinition Width="5"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center" Grid.Column="0"  FontSize="20" TextTrimming="WordEllipsis" Text="10:45 11:46 12:45" Foreground="Green" />
-                    <TextBlock VerticalAlignment="Center" Grid.Column="2"  FontSize="20" TextTrimming="WordEllipsis" Text="1:50 2:10 2:30 2:50 3:50" Foreground="Gray" />
+                    <TextBlock VerticalAlignment="Center" Grid.Column="0"  FontSize="20" TextTrimming="WordEllipsis" Text="{Binding nextTimes}" Foreground="Green" />
+                    <TextBlock VerticalAlignment="Center" Grid.Column="2"  FontSize="20" TextTrimming="WordEllipsis" Text="{Binding fourArrivalTimes}" Foreground="Gray" />
                 </Grid>
                </Grid>
         </DataTemplate>
@@ -79,6 +79,7 @@
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+                <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click_2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

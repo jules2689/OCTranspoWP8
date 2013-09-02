@@ -14,7 +14,7 @@ namespace OCTranspo.Views
 {
     public partial class StopRoutes : PhoneApplicationPage
     {
-        ObservableCollection<OCRoute> routes;
+        ObservableCollection<OCApiRoute> routes;
 
         public StopRoutes()
         {
@@ -40,7 +40,15 @@ namespace OCTranspo.Views
             if (NavigationContext.QueryString.TryGetValue("stopName", out msg))
                 stopName.Text = msg;
 
+            setIsLoading(true);
             routesListInit();
+        
+        }
+
+        public void setIsLoading(Boolean loading)
+        {
+            loadingProgress.Visibility = loading ? Visibility.Visible : Visibility.Collapsed;
+            loadingText.Visibility = loading ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public async void processRouteSummaryForStop(Object sender, UploadStringCompletedEventArgs e)
@@ -49,24 +57,16 @@ namespace OCTranspo.Views
             OCRouteSummaryForStop stop = OCSupport.makeRouteSummary(reply);
             if (stop != null)
             {
-                List<OCRoute> routesListObject = stop.Routes;
-                List<OCSchedule> schedule = await OCTranspoStopsData.getScheduleForDayAndStop("monday", stop.StopNumber.ToString());
-                foreach (OCRoute route in routesListObject)
+                List<OCApiRoute> routesListObject = stop.Routes;
+               
+                foreach (OCApiRoute route in routesListObject)
                 {
-                    String times = "";
-                    schedule.FindAll(delegate(OCSchedule s)
-                    {
-                        if (s.route_short_name == route.RouteNumber)
-                        {
-                            times = times + ", " + s.arrival_time;
-                            return true;
-                        }
-                        else
-                            return false;
-                    });
-                    route.fiveArrivalTimes = times;
+                    OCApiRoute route1 = await route.fetchTimes(stop.StopNumber.ToString());
+                    route.fourArrivalTimes = route1.fourArrivalTimes;
+                    route.nextTimes = route1.nextTimes;
                 }
-                routes = new ObservableCollection<OCRoute>(routesListObject);
+                routes = new ObservableCollection<OCApiRoute>(routesListObject);
+                setIsLoading(false);
                 routesList.ItemsSource = routes;
             }
         }
@@ -79,9 +79,9 @@ namespace OCTranspo.Views
         private void routesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedItem = ((LongListSelector)sender).SelectedItem;
-            if (selectedItem is OCRoute)
+            if (selectedItem is OCApiRoute)
             {
-                OCRoute route = (OCRoute)selectedItem;
+                OCApiRoute route = (OCApiRoute)selectedItem;
                 Navigation.NavigateToRoute(route.RouteNumber.ToString(), route.RouteHeading, int.Parse(stopID.Text), stopName.Text, route.RouteHeading);
             }
 

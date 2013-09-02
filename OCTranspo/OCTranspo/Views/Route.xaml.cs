@@ -84,5 +84,10 @@ namespace OCTranspo.Views
         {
             Navigation.NavigateToInfo();
         }
+
+        private void ApplicationBarMenuItem_Click_3(object sender, EventArgs e)
+        {
+            Navigation.NavigateToSettings();
+        }
     }
 }

@@ -48,6 +48,7 @@
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/pin.png" Text="pin to start" Click="ApplicationBarMenuItem_Click_1"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_2"/>
+                <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click_3"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
