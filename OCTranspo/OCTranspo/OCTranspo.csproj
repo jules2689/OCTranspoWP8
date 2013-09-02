@@ -95,12 +95,19 @@
     </Compile>
     <Compile Include="GeoLocator.cs" />
     <Compile Include="LocalizedStrings.cs" />
-    <Compile Include="Models\OCSchedule.cs" />
+    <Compile Include="Models\dbModels\OCSettings.cs" />
+    <Compile Include="Models\dbModels\OCStopRoute.cs" />
+    <Compile Include="Models\OCApiRoute.cs" />
+    <Compile Include="Models\OCAPITrip.cs" />
+    <Compile Include="Models\OCCalendar.cs" />
+    <Compile Include="Models\dbModels\OCSchedule.cs" />
     <Compile Include="Models\OCRouteNumber.cs" />
-    <Compile Include="Models\OCCSVParserHelper.cs" />
     <Compile Include="Models\OCStopTime.cs" />
     <Compile Include="Models\OCZipFile.cs" />
     <Compile Include="Navigation.cs" />
+    <Compile Include="Views\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StopRoutes.xaml.cs">
       <DependentUpon>StopRoutes.xaml</DependentUpon>
     </Compile>
@@ -112,7 +119,7 @@
     </Compile>
     <Compile Include="Models\OCDirection.cs" />
     <Compile Include="Models\OCNextTripForStop.cs" />
-    <Compile Include="Models\OCRoute.cs" />
+    <Compile Include="Models\dbModels\OCRoute.cs" />
     <Compile Include="Models\OCRouteSummaryForStop.cs" />
     <Compile Include="Models\OCStop.cs" />
     <Compile Include="Models\OCSupport.cs" />
@@ -136,6 +143,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Views\Settings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\StopRoutes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -154,9 +165,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\OCTranspo.zip">
+    <EmbeddedResource Include="Assets\OCTranspo.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
     <None Include="OCTranspo_2013_07_14_08_21_26.sap" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
@@ -231,6 +242,12 @@
     <SDKReference Include="SQLite.WP80, Version=3.8.0">
       <Name>SQLite for Windows Phone</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\sqlite-net-wp8\Sqlite.vcxproj">
+      <Project>{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}</Project>
+      <Name>Sqlite</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

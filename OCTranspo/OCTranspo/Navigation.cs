@@ -12,6 +12,12 @@ namespace OCTranspo
     class Navigation
     {
 
+        public static void NavigateToSettings()
+        {
+            String URI = "/Views/Settings.xaml";
+            NavigateTo(URI);
+        }
+
         public static void NavigateToStopRoute(String routeNumber, String name)
         {
             String URI = "/Views/StopRoutes.xaml?stopRoute=" + routeNumber.Trim() + "&stopName=" + name.Trim();

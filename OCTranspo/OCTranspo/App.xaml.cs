@@ -224,5 +224,10 @@ namespace OCTranspo
         {
             Navigation.NavigateToInfo();
         }
+
+        private void ApplicationBarMenuItem_Click_2(object sender, EventArgs e)
+        {
+            Navigation.NavigateToSettings();
+        }
     }
 }

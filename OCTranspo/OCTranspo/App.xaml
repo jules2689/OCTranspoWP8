@@ -14,6 +14,7 @@
             <shell:ApplicationBarIconButton x:Name="pinButton" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+                <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click_2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
 
@@ -22,6 +23,7 @@
             <shell:ApplicationBarIconButton x:Name="pinButton1" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+                <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click_2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
 
@@ -30,6 +32,7 @@
             <shell:ApplicationBarIconButton x:Name="pinButton2" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+                <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click_2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
 
@@ -38,6 +41,7 @@
             <shell:ApplicationBarIconButton x:Name="pinButton3" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+                <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click_2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
 
@@ -45,6 +49,7 @@
             <shell:ApplicationBarIconButton x:Name="PinButton4" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+                <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click_2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
 
@@ -52,6 +57,7 @@
             <shell:ApplicationBarIconButton x:Name="PinButton5" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+                <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click_2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
 
@@ -59,6 +65,7 @@
             <shell:ApplicationBarIconButton x:Name="PinButton6" IconUri="/Assets/AppBar/pin.png" Text="pin to start"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="about" Click="ApplicationBarMenuItem_Click_1"/>
+                <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click_2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
 
