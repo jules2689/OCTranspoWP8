@@ -122,9 +122,9 @@ public class OCSupport
 
     //Element Parsers
 
-    private static List<OCRoute> makeRoute(XElement routes)
+    private static List<OCApiRoute> makeRoute(XElement routes)
     {
-        List<OCRoute> rts = new List<OCRoute>();
+        List<OCApiRoute> rts = new List<OCApiRoute>();
         int routeNo, dirId;
         String dir, heading, routeID;
 
@@ -135,7 +135,7 @@ public class OCSupport
             dirId = int.Parse(route.Element("DirectionID").Value);
             dir = route.Element("Direction").Value;
             heading = route.Element("RouteHeading").Value;
-            OCRoute routeObject = OCRoute.newOCRoute(routeNo, routeID, dirId, dir, heading);
+            OCApiRoute routeObject = OCApiRoute.newOCApiRoute(routeNo, routeID, dirId, dir, heading);
             routeObject.BusName = heading.ToUpper();
             rts.Add(routeObject);
         }
@@ -163,9 +163,9 @@ public class OCSupport
         return dirs;
     }
 
-    private static List<OCTrip> makeTrips(XElement trip)
+    private static List<OCAPITrip> makeTrips(XElement trip)
     {
-        List<OCTrip> trips = new List<OCTrip>();
+        List<OCAPITrip> trips = new List<OCAPITrip>();
         String destination, startTime, busType, tmpGPS, tmpLat, tmpLon;
         int adjustTime;
         bool last;
@@ -187,7 +187,7 @@ public class OCSupport
             lat = tmpLat == "" ? 0 : double.Parse(tmpLat);
             lon = tmpLon == "" ? 0 : double.Parse(tmpLon);
 
-            trips.Add(OCTrip.newOCTrip(destination, startTime, adjustTime, adjustAge, busType, gpsSpeed, lat, lon, last));
+            trips.Add(OCAPITrip.newOCAPITrip(destination, startTime, adjustTime, adjustAge, busType, gpsSpeed, lat, lon, last));
         }
 
         return trips;

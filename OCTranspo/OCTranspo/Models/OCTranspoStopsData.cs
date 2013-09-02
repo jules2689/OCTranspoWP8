@@ -18,6 +18,7 @@ namespace OCTranspo.Models
         {
             OCZipFile.UnZipOCTranspo();
             createFavouritesTable();
+            createSettingsTable();
         }
 
         private static async void createFavouritesTable()
@@ -27,6 +28,22 @@ namespace OCTranspo.Models
             await conn.CreateTableAsync<OCDirection>();
         }
 
+        private static async void createSettingsTable()
+        {
+            String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
+            await conn.CreateTableAsync<OCSettings>();
+            OCSettings settings = OCSettings.newOCSettings(500);
+            await conn.InsertAsync(settings);
+        }
+
+        public static async void updateSettings()
+        {
+            String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
+            await conn.u
+        }
+        
         // Favourites
 
         public static async Task<int> addFavouriteStop(OCDirection direction)
@@ -114,35 +131,55 @@ namespace OCTranspo.Models
 
         //Schedules
 
-        public static async Task<List<OCSchedule>> getScheduleForDayAndStop(String day, String stop)
+        public static async Task<List<OCStop>> getStopIDForCode(String stop)
         {
             String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
             SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
             var count = await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='OCStop'");
             if (count > 0)
             {
-                String date = getTodaysDate();
-               // String Query = "SELECT  r.route_short_name, r.route_long_name, t.trip_headsign, s.arrival_time FROM OCStopTime s LEFT JOIN OCTrip t ON s.trip_id = t.trip_id LEFT JOIN OCRoute r ON t.route_id = r.route_id LEFT JOIN OCCalendar c ON t.service_id = c.service_id WHERE s.stop_id = 'AA010' AND c.start_date <= " + date + " AND c.end_date >= " + date + " AND c.monday = '1' ORDER BY arrival_time";
-                String Query = "SELECT t.trip_headsign FROM OCStopTime s LEFT JOIN OCTrip t ON s.trip_id = t.trip_id  ";
-                
-                var schedule = await conn.QueryAsync<OCSchedule>(Query);
-                Console.Out.Write(schedule);
-                return new List<OCSchedule>();
+                int date = getTodaysDate();
+                String Query = "SELECT stop_id from OCStop where stop_code = '" + stop + "'";
+                List<OCStop> codes = await conn.QueryAsync<OCStop>(Query);
+                return codes;
             }
             else
             {
                 OCTranspoStopsData.initDB();
-                return await getScheduleForDayAndStop(day, stop);
+                return await getStopIDForCode(stop);
             }
         }
 
-        private static String getTodaysDate()
+        public static async Task<List<OCSchedule>> getScheduleForDayAndStop(String day, String stop, int route)
+        {
+            String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
+            var count = await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='OCStop'");
+            if (count > 0)
+            {
+                int date = getTodaysDate();
+                String Query = "SELECT * from OCSchedule where start_date <= " + date + " AND end_date >= " + date + " AND stop_code = '" + stop + "' AND route_short_name='" + route + "' AND " + day.ToLower() + " = '1' ORDER BY arrival_time";
+                List<OCSchedule> schedule = await conn.QueryAsync<OCSchedule>(Query);
+                return schedule;
+            }
+            else
+            {
+                OCTranspoStopsData.initDB();
+                return await getScheduleForDayAndStop(day, stop, route);
+            }
+        }
+
+        private static int getTodaysDate()
         {
             DateTime date = DateTime.Today;
             String month = date.Month.ToString();
             month = month.Length > 1 ? month : "0" + month;
-            String dateString = date.Year.ToString() + month + date.Day.ToString();
-            return dateString;
+
+            String day = date.Day.ToString();
+            day = day.Length > 1 ? day : "0" + day;
+
+            String dateString = date.Year.ToString() + month + day;
+            return int.Parse(dateString);
         }
     }
 }

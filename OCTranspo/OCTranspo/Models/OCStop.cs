@@ -9,7 +9,7 @@ namespace OCTranspo.Models
     public class OCStop
     {
         [SQLite.Indexed]
-        public int stop_id { get; set; }
+        public String stop_id { get; set; }
         [SQLite.Indexed]
         public String stop_code { get; set; }
         public String stop_name { get; set; }
@@ -18,7 +18,7 @@ namespace OCTranspo.Models
 
         public OCStop() { }
 
-        public static OCStop newOCStop(String stop_code, int stop_id, String stop_name, Double stop_lat, Double stop_lon)
+        public static OCStop newOCStop(String stop_code, String stop_id, String stop_name, Double stop_lat, Double stop_lon)
         {
             OCStop stop = new OCStop();
             stop.stop_id = stop_id;

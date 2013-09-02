@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class OCRouteSummaryForStop
 {
     public OCRouteSummaryForStop() { }
-    public static OCRouteSummaryForStop newOCRouteSummaryForStop(int stopNo, String stopDescription, List<OCRoute> routes)
+    public static OCRouteSummaryForStop newOCRouteSummaryForStop(int stopNo, String stopDescription, List<OCApiRoute> routes)
 	{
         OCRouteSummaryForStop summary = new OCRouteSummaryForStop();
         summary.StopNumber = stopNo;
@@ -15,5 +15,5 @@ public class OCRouteSummaryForStop
 
     public int StopNumber { get; set; }
     public String StopName { get; set; }
-    public List<OCRoute> Routes { get; set; }
+    public List<OCApiRoute> Routes { get; set; }
 }
