@@ -25,23 +25,52 @@ namespace OCTranspo.Models
         {
             String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
             SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
-            await conn.CreateTableAsync<OCDirection>();
+            var count = await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='OCDirection'");
+            if (count == 0)
+            {
+                await conn.CreateTableAsync<OCDirection>();
+            }
         }
 
         private static async void createSettingsTable()
         {
             String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
             SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
-            await conn.CreateTableAsync<OCSettings>();
-            OCSettings settings = OCSettings.newOCSettings(500);
-            await conn.InsertAsync(settings);
+            var count = await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='OCSettings'");
+            if (count == 0)
+            {
+                await conn.CreateTableAsync<OCSettings>();
+                OCSettings settings = OCSettings.newOCSettings(500);
+                settings.id = 1;
+                await conn.InsertAsync(settings);
+            }
         }
 
-        public static async void updateSettings()
+        public static async Task<int> updateSettings(OCSettings settings)
+        {
+            settings.id = 1;
+            String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
+            int result = await conn.UpdateAsync(settings);
+            return result;
+        }
+
+        public static async Task<OCSettings> getSettings()
         {
             String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
             SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
-            await conn.u
+            var count = await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='OCSettings'");
+            if (count > 0)
+            {
+                String Query = "SELECT * from OCSettings LIMIT 1;";
+                List<OCSettings> settings = await conn.QueryAsync<OCSettings>(Query);
+                return settings.First<OCSettings>();
+            }
+            else
+            {
+                createSettingsTable();
+                return await getSettings();
+            }
         }
         
         // Favourites
@@ -58,6 +87,15 @@ namespace OCTranspo.Models
             return result;
         }
 
+        public static async Task<int> deleteFavourite(OCDirection direction)
+        {
+            String path = ApplicationData.Current.LocalFolder.Path + "/OCTranspo.sqlite";
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(path);
+            String Query = "DELETE from OCDirection WHERE routeNo=" + direction.RouteNo + " AND FromStopNumber=" + direction.FromStopNumber + ";";
+            int result = await conn.DeleteAsync(direction);
+            return result;
+        }
+
         public static async Task<ObservableCollection<OCDirection>> getFavourites()
         {
             //TODO Math.
@@ -66,7 +104,7 @@ namespace OCTranspo.Models
             var count = await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='OCDirection'");
             if (count > 0)
             {
-                String Query = "SELECT * from OCDirection;";
+                String Query = "SELECT Id, * from OCDirection;";
                 List<OCDirection> stops = await conn.QueryAsync<OCDirection>(Query);
                 ObservableCollection<OCDirection> directionsCollection = new ObservableCollection<OCDirection>(stops);
                 return directionsCollection;
@@ -88,10 +126,10 @@ namespace OCTranspo.Models
             var count = await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='OCStop'");
             if (count > 0)
             {
-                double lowerBound = 0.12 / zoomLevel;
-                double upperBound = 0.12 / zoomLevel;
-                String Query = "SELECT DISTINCT(stop_id), * from OCStop where ((stop_lat BETWEEN " + (latitude - lowerBound) + " AND " + (latitude + upperBound) + ")" +
-                " AND (stop_lon BETWEEN " + (longitude - lowerBound) + " AND " + (longitude + upperBound) + ")) ORDER BY stop_id;";
+                OCSettings settings = await getSettings();
+                OCGeoMath latlong = OCGeoMath.getRange(latitude, longitude, settings.nearbyDistance);
+                String Query = "SELECT DISTINCT(stop_id), * from OCStop where ((stop_lat BETWEEN " + latlong.lowerLat + " AND " + latlong.upperLat + ")" +
+                " AND (stop_lon BETWEEN " + latlong.lowerLong + " AND " + latlong.upperLong + ")) ORDER BY stop_id;";
 
                 List<OCStop> stops = await conn.QueryAsync<OCStop>(Query);
                 ObservableCollection<OCStop> stopsCollection = new ObservableCollection<OCStop>(stops);
