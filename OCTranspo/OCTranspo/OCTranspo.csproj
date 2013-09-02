@@ -105,6 +105,7 @@
     <Compile Include="Models\OCStopTime.cs" />
     <Compile Include="Models\OCZipFile.cs" />
     <Compile Include="Navigation.cs" />
+    <Compile Include="OCGeoMath.cs" />
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -117,7 +118,7 @@
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\OCDirection.cs" />
+    <Compile Include="Models\dbModels\OCDirection.cs" />
     <Compile Include="Models\OCNextTripForStop.cs" />
     <Compile Include="Models\dbModels\OCRoute.cs" />
     <Compile Include="Models\OCRouteSummaryForStop.cs" />

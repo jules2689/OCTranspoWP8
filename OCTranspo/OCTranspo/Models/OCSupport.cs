@@ -157,7 +157,7 @@ public class OCSupport
             direction = dir.Element("Direction").Value;
             procTime = dir.Element("RequestProcessingTime").Value;
             trips = dir.Element("Trips");
-            dirs.Add(OCDirection.newOCDirection(routeNo, routeLabel, direction, procTime));
+            dirs.Add(OCDirection.newOCDirection(routeNo, routeLabel, direction, procTime,0));
         }
 
         return dirs;
