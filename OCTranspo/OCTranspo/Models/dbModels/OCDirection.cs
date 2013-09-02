@@ -10,15 +10,19 @@ public class OCDirection
 
 	public OCDirection(){}
     
-    public static OCDirection newOCDirection(int routeNo, String routeLabel, String direction, String procTime)
+    public static OCDirection newOCDirection(int routeNo, String routeLabel, String direction, String procTime, int Id)
     {
         OCDirection dir = new OCDirection();
         dir.RouteNo = routeNo;
         dir.RouteLabel = routeLabel;
         dir.Direction = direction;
         dir.ProcTime = procTime;
+        dir.Id = Id;
         return dir;
     }
+
+    [SQLite.PrimaryKey, SQLite.AutoIncrement]
+    public int Id { get; set; }
 
     public int RouteNo { get; set; }
     public String RouteLabel { get; set; }
@@ -34,6 +38,7 @@ public class OCDirection
     public String fourArrivalTimes { get; set; }
     public String nextTimes { get; set; }
 
+    //TODO :GENERALIZE/Abstract
     public async Task<OCDirection> fetchTimes(String stopID)
     {
         String times = "";
@@ -69,6 +74,7 @@ public class OCDirection
         }
         fourTimes = fourTimes.Length > 0 ? fourTimes.Substring(1) : fourTimes;
         times = times.Length > 0 ? times.Substring(1) : times;
+        if (times.Trim().Length == 0) times = "Sorry, there are no more stops today.";
         this.fourArrivalTimes = fourTimes;
         this.nextTimes = times;
         return this;
