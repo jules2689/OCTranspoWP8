@@ -10,6 +10,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using OCTranspo.Models;
 using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace OCTranspo.Views
 {
@@ -17,11 +18,12 @@ namespace OCTranspo.Views
     {
         public OCApiRoute route;
         public OCRouteSummaryForStop stop;
+        public int index;
     }
 
     public partial class StopRoutes : PhoneApplicationPage
     {
-        ObservableCollection<OCApiRoute> routes;
+        public ObservableCollection<OCApiRoute> routes = new ObservableCollection<OCApiRoute>();
         private bool addFavePressed;
 
         public StopRoutes()
@@ -68,11 +70,13 @@ namespace OCTranspo.Views
             {
                 List<OCApiRoute> routesListObject = stop.Routes;
                
-                foreach (OCApiRoute route in routesListObject)
+                for(int index = 0; index < routesListObject.Count; index++)
                 {
+                    OCApiRoute route = routesListObject[index];
                     StopAndRoute stopAndRoute = new StopAndRoute();
                     stopAndRoute.stop = stop;
                     stopAndRoute.route = route;
+                    stopAndRoute.index = index;
 
                     BackgroundWorker bw = new BackgroundWorker();
                     bw.WorkerSupportsCancellation = true;
@@ -85,7 +89,6 @@ namespace OCTranspo.Views
                 }
                 routes = new ObservableCollection<OCApiRoute>(routesListObject);
                 setIsLoading(false);
-                routesList.ItemsSource = routes;
             }
         }
 
@@ -95,16 +98,23 @@ namespace OCTranspo.Views
             StopAndRoute stopAndRoute = (StopAndRoute)e.Argument;
             OCApiRoute route = stopAndRoute.route;
 
-            OCApiRoute route1 =  await route.fetchTimes(stopAndRoute.stop.StopNumber.ToString());
-            route.fourArrivalTimes = route1.fourArrivalTimes;
-            route.nextTimes = route1.nextTimes;
+            OCApiRoute route1 = await route.fetchTimes(stopAndRoute.stop.StopNumber.ToString());
 
-            routesList
+            Dispatcher.BeginInvoke(() =>
+           {
+               Console.WriteLine("FUCKING SHIT FUCK: " + route1.nextTimes + " " + route1.fourArrivalTimes);
+               routes.RemoveAt(stopAndRoute.index);
+               routes.Insert(stopAndRoute.index, route1);
+               routesList.ItemsSource = routes;
+           });
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            Dispatcher.BeginInvoke(() =>
+            {
+                routesList.UpdateLayout();
+            });
         }
 
         private void routesListInit()
