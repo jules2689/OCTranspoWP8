@@ -9,9 +9,16 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using OCTranspo.Models;
+using System.ComponentModel;
 
 namespace OCTranspo.Views
 {
+    public struct StopAndRoute
+    {
+        public OCApiRoute route;
+        public OCRouteSummaryForStop stop;
+    }
+
     public partial class StopRoutes : PhoneApplicationPage
     {
         ObservableCollection<OCApiRoute> routes;
@@ -63,14 +70,41 @@ namespace OCTranspo.Views
                
                 foreach (OCApiRoute route in routesListObject)
                 {
-                    OCApiRoute route1 = await route.fetchTimes(stop.StopNumber.ToString());
-                    route.fourArrivalTimes = route1.fourArrivalTimes;
-                    route.nextTimes = route1.nextTimes;
+                    StopAndRoute stopAndRoute = new StopAndRoute();
+                    stopAndRoute.stop = stop;
+                    stopAndRoute.route = route;
+
+                    BackgroundWorker bw = new BackgroundWorker();
+                    bw.WorkerSupportsCancellation = true;
+                    bw.WorkerReportsProgress = false;
+                    bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+                    bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+                    bw.RunWorkerAsync(stopAndRoute);
+
+                    route.nextTimes = "Loading...";
                 }
                 routes = new ObservableCollection<OCApiRoute>(routesListObject);
                 setIsLoading(false);
                 routesList.ItemsSource = routes;
             }
+        }
+
+        private async void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            StopAndRoute stopAndRoute = (StopAndRoute)e.Argument;
+            OCApiRoute route = stopAndRoute.route;
+
+            OCApiRoute route1 =  await route.fetchTimes(stopAndRoute.stop.StopNumber.ToString());
+            route.fourArrivalTimes = route1.fourArrivalTimes;
+            route.nextTimes = route1.nextTimes;
+
+            routesList
+        }
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
         }
 
         private void routesListInit()
